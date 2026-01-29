@@ -38,7 +38,15 @@ def calc_min_trace_width_internal(area,thickness_mils):
     width = area/thickness_mils
     return width
 
+def calc_min_trace_width_external(area,thickness_mils):
+    width = area/thickness_mils
+    return width
+
 def calc_internal_trace_resistance(resistivity,length,trace_area,alpha,temp_ambient):
+    resistance = (resistivity*(length/trace_area))*(1+(alpha*(temp_ambient-25)))
+    return resistance
+
+def calc_external_trace_resistance(resistivity,length,trace_area,alpha,temp_ambient):
     resistance = (resistivity*(length/trace_area))*(1+(alpha*(temp_ambient-25)))
     return resistance
 
@@ -46,6 +54,9 @@ def calc_internal_trace_voltage_drop(amps,resistance):
     voltage_drop = (amps*resistance)
     return voltage_drop
 
+def calc_external_trace_voltage_drop(amps,resistance):
+    voltage_drop = (amps*resistance)
+    return voltage_drop
 
 if calc_type == "i" and calc_mode == "v":
 
