@@ -112,7 +112,7 @@ if calc_type == "e" and calc_mode == "v":
 
     print(f"Voltage Drop is: {external_voltage_drop:.4f} Volts")
 
-elif calc_type == "i" and calc_mode == "w":
+elif calc_type == "e" and calc_mode == "w":
 
     current = float(input("Enter the desired trace current in Amps: "))
     copper_thickness = float(input("Enter the copper thickness in oz/ft^2: "))
