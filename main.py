@@ -19,47 +19,44 @@ external_area_min = float
 external_area_actual = float
 
 internal_k: float = .024
-internal_b: float = 0.44
-internal_c: float = 0.725
-
 external_k: float = 0.048
-external_b: float = 0.44
-external_c: float = 0.725
+b: float = 0.44
+c: float = 0.725
 
 rho_copper: float = 0.00067716  #Resistivity of copper in mils
 alpha_copper: float = 0.00393   #Temperature coefficient of Copper
 
 def calc_trace_area_min(amps,input_temp_rise):
-    area_min = (amps / (internal_k * (input_temp_rise ** internal_b))) ** (1 / internal_c)
+    area_min = (amps / (internal_k * (input_temp_rise ** b))) ** (1 / c)
     return round(area_min,4)
 
 def calc_trace_area_actual(trace_width_actual,thickness_mils):
     area_actual = trace_width_actual * thickness_mils
-    return area_actual
+    return round(area_actual,4)
 
 def calc_min_trace_width_internal(area,thickness_mils):
     width = area/thickness_mils
-    return width
+    return round(width,4)
 
 def calc_min_trace_width_external(area,thickness_mils):
     width = area/thickness_mils
-    return width
+    return round(width,4)
 
 def calc_internal_trace_resistance(resistivity,length,trace_area,alpha,temp_ambient):
     resistance = (resistivity*(length/trace_area))*(1+(alpha*(temp_ambient-25)))
-    return resistance
+    return round(resistance,4)
 
 def calc_external_trace_resistance(resistivity,length,trace_area,alpha,temp_ambient):
     resistance = (resistivity*(length/trace_area))*(1+(alpha*(temp_ambient-25)))
-    return resistance
+    return round(resistance,4)
 
 def calc_internal_trace_voltage_drop(amps,resistance):
     voltage_drop = (amps*resistance)
-    return voltage_drop
+    return round(voltage_drop,4)
 
 def calc_external_trace_voltage_drop(amps,resistance):
     voltage_drop = (amps*resistance)
-    return voltage_drop
+    return round(voltage_drop,4)
 
 
 if __name__ == "__main__":
