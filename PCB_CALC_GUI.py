@@ -16,33 +16,13 @@ class FormWindow(QMainWindow):
         main_layout = QVBoxLayout()
         central_widget.setLayout(main_layout)
 
-        central_widget.setStyleSheet("background-color: lightblue;")
+        central_widget.setStyleSheet("background-color: white;")
+        app.setStyleSheet("QWidget { color: black; }")
 
-        # === 1. Most recommended for forms: QFormLayout ===
         form_layout = QFormLayout()
         form_layout.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
         form_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
         form_layout.setSpacing(8)
-
-        self.min_area_result = QLineEdit()
-        self.min_area_result.setReadOnly(True)
-        self.min_area_result.setFixedWidth(75)
-
-        self.internal_resistance_result = QLineEdit()
-        self.internal_resistance_result.setReadOnly(True)
-        self.internal_resistance_result.setFixedWidth(75)
-
-        self.internal_voltage_result = QLineEdit()
-        self.internal_voltage_result.setReadOnly(True)
-        self.internal_voltage_result.setFixedWidth(75)
-
-        self.external_resistance_result = QLineEdit()
-        self.external_resistance_result.setReadOnly(True)
-        self.external_resistance_result.setFixedWidth(75)
-
-        self.external_voltage_result = QLineEdit()
-        self.external_voltage_result.setReadOnly(True)
-        self.external_voltage_result.setFixedWidth(75)
 
         self.amps_edit = QLineEdit()
         self.amps_edit.setFixedWidth(75)
@@ -68,8 +48,28 @@ class FormWindow(QMainWindow):
         self.trace_width_edit.setFixedWidth(75)
         self.trace_width_edit.setStyleSheet("background-color: yellow;")
 
+        self.min_area_result = QLineEdit()
+        self.min_area_result.setReadOnly(True)
+        self.min_area_result.setFixedWidth(75)
+
+        self.internal_resistance_result = QLineEdit()
+        self.internal_resistance_result.setReadOnly(True)
+        self.internal_resistance_result.setFixedWidth(75)
+
+        self.internal_voltage_result = QLineEdit()
+        self.internal_voltage_result.setReadOnly(True)
+        self.internal_voltage_result.setFixedWidth(75)
+
+        self.external_resistance_result = QLineEdit()
+        self.external_resistance_result.setReadOnly(True)
+        self.external_resistance_result.setFixedWidth(75)
+
+        self.external_voltage_result = QLineEdit()
+        self.external_voltage_result.setReadOnly(True)
+        self.external_voltage_result.setFixedWidth(75)
+
         self.calculate = QPushButton("Calculate Results")
-        self.calculate.setStyleSheet("background-color: yellow;")
+        self.calculate.setStyleSheet("background-color: red;")
         self.calculate.clicked.connect(self.run_calc)
 
         form_layout.addRow("INPUTS:", QWidget())
@@ -80,9 +80,6 @@ class FormWindow(QMainWindow):
         form_layout.addRow("Ambient Temperature in Deg C", self.ambient_temp_edit)
         form_layout.addRow("Trace Width in mils", self.trace_width_edit)
 
-        # Add a specific vertical spacer item
-        # QSpacerItem(width, height, sizePolicyHorizontal, sizePolicyVertical)
-        # The spacer will have a fixed height of 40 pixels.
         spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
 

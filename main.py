@@ -1,5 +1,3 @@
-from PyQt6.QtWidgets import QVBoxLayout
-
 internal_trace_resistance = float
 
 external_trace_resistance = float
