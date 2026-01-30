@@ -16,28 +16,63 @@ class FormWindow(QMainWindow):
         main_layout = QVBoxLayout()
         central_widget.setLayout(main_layout)
 
+        central_widget.setStyleSheet("background-color: lightblue;")
+
         # === 1. Most recommended for forms: QFormLayout ===
         form_layout = QFormLayout()
         form_layout.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
         form_layout.setFormAlignment(Qt.AlignmentFlag.AlignLeft)
         form_layout.setSpacing(8)
 
+        self.min_area_result = QLineEdit()
+        self.min_area_result.setReadOnly(True)
+        self.min_area_result.setFixedWidth(75)
+
+        self.internal_resistance_result = QLineEdit()
+        self.internal_resistance_result.setReadOnly(True)
+        self.internal_resistance_result.setFixedWidth(75)
+
+        self.internal_voltage_result = QLineEdit()
+        self.internal_voltage_result.setReadOnly(True)
+        self.internal_voltage_result.setFixedWidth(75)
+
+        self.external_resistance_result = QLineEdit()
+        self.external_resistance_result.setReadOnly(True)
+        self.external_resistance_result.setFixedWidth(75)
+
+        self.external_voltage_result = QLineEdit()
+        self.external_voltage_result.setReadOnly(True)
+        self.external_voltage_result.setFixedWidth(75)
+
         self.amps_edit = QLineEdit()
         self.amps_edit.setFixedWidth(75)
+        self.amps_edit.setStyleSheet("background-color: yellow;")
+
         self.length_edit = QLineEdit()
         self.length_edit.setFixedWidth(75)
+        self.length_edit.setStyleSheet("background-color: yellow;")
+
         self.temp_rise_edit = QLineEdit()
         self.temp_rise_edit.setFixedWidth(75)
+        self.temp_rise_edit.setStyleSheet("background-color: yellow;")
+
         self.copper_weight_edit = QLineEdit()
         self.copper_weight_edit.setFixedWidth(75)
+        self.copper_weight_edit.setStyleSheet("background-color: yellow;")
+
         self.ambient_temp_edit = QLineEdit()
         self.ambient_temp_edit.setFixedWidth(75)
+        self.ambient_temp_edit.setStyleSheet("background-color: yellow;")
+
         self.trace_width_edit = QLineEdit()
         self.trace_width_edit.setFixedWidth(75)
+        self.trace_width_edit.setStyleSheet("background-color: yellow;")
 
-        self.calculate = QPushButton("Calculate")
+        self.calculate = QPushButton("Calculate Results")
+        self.calculate.setStyleSheet("background-color: yellow;")
         self.calculate.clicked.connect(self.run_calc)
 
+        form_layout.addRow("INPUTS:", QWidget())
         form_layout.addRow("Desired Trace Current in Amps", self.amps_edit)
         form_layout.addRow("Trace Length in mils", self.length_edit)
         form_layout.addRow("Temp Rise in Deg C", self.temp_rise_edit)
@@ -45,32 +80,44 @@ class FormWindow(QMainWindow):
         form_layout.addRow("Ambient Temperature in Deg C", self.ambient_temp_edit)
         form_layout.addRow("Trace Width in mils", self.trace_width_edit)
 
+        # Add a specific vertical spacer item
+        # QSpacerItem(width, height, sizePolicyHorizontal, sizePolicyVertical)
+        # The spacer will have a fixed height of 40 pixels.
+        spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("RESULTS:", QWidget())
+
+        form_layout.addRow("Minimum Trace Area in mils^2", self.min_area_result)
+        self.min_area_result.setStyleSheet("background-color: lightgreen;")
+
+        spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("INTERNAL Trace Resistance in Ohms", self.internal_resistance_result)
+        self.internal_resistance_result.setStyleSheet("background-color: lightgreen;")
+
+        spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("INTERNAL Trace Voltage Drop in Volts", self.internal_voltage_result)
+        self.internal_voltage_result.setStyleSheet("background-color: lightgreen;")
+
+        spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("EXTERNAL Trace Resistance in Ohms", self.external_resistance_result)
+        self.external_resistance_result.setStyleSheet("background-color: lightgreen;")
+
+        spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("EXTERNAL Trace Voltage Drop in Volts", self.external_voltage_result)
+        self.external_voltage_result.setStyleSheet("background-color: lightgreen;")
+
+
         main_layout.addLayout(form_layout)
         main_layout.addWidget(self.calculate)
-
-        # Connect the textChanged signal to the update_variable function
-        self.amps_edit.textChanged.connect(self.update_variable)
-
-        # Connect the textChanged signal to the update_variable function
-        self.length_edit.textChanged.connect(self.update_variable)
-
-        # Connect the textChanged signal to the update_variable function
-        self.temp_rise_edit.textChanged.connect(self.update_variable)
-
-        # Connect the textChanged signal to the update_variable function
-        self.copper_weight_edit.textChanged.connect(self.update_variable)
-
-        # Connect the textChanged signal to the update_variable function
-        self.ambient_temp_edit.textChanged.connect(self.update_variable)
-
-        # Connect the textChanged signal to the update_variable function
-        self.trace_width_edit.textChanged.connect(self.update_variable)
-
-    def update_variable(self, text):
-        """
-        This function is called automatically every time the text changes.
-        """
-        self.user_input = text
 
     def run_calc(self):
 
@@ -79,7 +126,7 @@ class FormWindow(QMainWindow):
 
         min_trace_area = calc_trace_area_min(amps,temp_rise_C)
 
-        print(f"Minimum trace area: {min_trace_area} mils^2")
+        self.min_area_result.setText(str(min_trace_area))
 
 
 if __name__ == '__main__':
