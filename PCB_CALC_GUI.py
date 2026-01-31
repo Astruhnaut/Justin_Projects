@@ -95,11 +95,12 @@ class FormWindow(QMainWindow):
         form_layout.addRow("INPUTS:", QWidget())
         form_layout.addRow("Desired Trace Current in Amps", self.amps_edit)
         form_layout.addRow("Trace Length in mils", self.length_edit)
-        form_layout.addRow("Temp Rise in Deg C", self.temp_rise_edit)
-        form_layout.addRow("Copper Weight in oz/ft^2", self.copper_weight_edit)
-        form_layout.addRow("Ambient Temperature in Deg C", self.ambient_temp_edit)
         form_layout.addRow("INTERNAL Trace Width in mils", self.internal_trace_width_edit)
         form_layout.addRow("EXTERNAL Trace Width in mils", self.external_trace_width_edit)
+        form_layout.addRow("Temp Rise in Deg C", self.temp_rise_edit)
+        form_layout.addRow("Ambient Temperature in Deg C", self.ambient_temp_edit)
+        form_layout.addRow("Copper Weight in oz/ft^2", self.copper_weight_edit)
+
 
         spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
