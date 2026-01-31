@@ -19,15 +19,19 @@ external_area_min = float
 external_area_actual = float
 
 internal_k: float = .024
-external_k: float = 0.048
+external_k: float = .048
 b: float = 0.44
 c: float = 0.725
 
 rho_copper: float = 0.00067716  #Resistivity of copper in mils
 alpha_copper: float = 0.00393   #Temperature coefficient of Copper
 
-def calc_trace_area_min(amps,input_temp_rise):
+def calc_internal_trace_area_min(amps,input_temp_rise):
     area_min = (amps / (internal_k * (input_temp_rise ** b))) ** (1 / c)
+    return round(area_min,4)
+
+def calc_external_trace_area_min(amps,input_temp_rise):
+    area_min = (amps / (external_k * (input_temp_rise ** b))) ** (1 / c)
     return round(area_min,4)
 
 def calc_trace_area_actual(trace_width_actual,thickness_mils):
@@ -90,7 +94,7 @@ if __name__ == "__main__":
 
         copper_thickness_mils: float = copper_thickness * 1.378  # Convert copper thickness from oz/ft^2 to mils
 
-        internal_area_min = calc_trace_area_min(current, internal_k, temp_rise, internal_b, internal_c)
+        internal_area_min = calc_internal_trace_area_min(current, internal_k, temp_rise, b, c)
         internal_min_trace_width = calc_min_trace_width_internal(internal_area_min, copper_thickness_mils)
 
         print(f"Minimum Internal Trace Width is: {internal_min_trace_width:.4f} mils")
@@ -120,7 +124,7 @@ if __name__ == "__main__":
 
         copper_thickness_mils: float = copper_thickness * 1.378  # Convert copper thickness from oz/ft^2 to mils
 
-        external_area_min = calc_trace_area_min(current, external_k, temp_rise, external_b, external_c)
+        external_area_min = calc_external_trace_area_min(current, external_k, temp_rise, b, c)
         external_min_trace_width = calc_min_trace_width_external(external_area_min, copper_thickness_mils)
 
         print(f"Minimum External Trace Width is: {external_min_trace_width:.4f} mils")

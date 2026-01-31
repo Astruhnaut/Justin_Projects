@@ -44,13 +44,21 @@ class FormWindow(QMainWindow):
         self.ambient_temp_edit.setFixedWidth(75)
         self.ambient_temp_edit.setStyleSheet("background-color: yellow;")
 
-        self.trace_width_edit = QLineEdit()
-        self.trace_width_edit.setFixedWidth(75)
-        self.trace_width_edit.setStyleSheet("background-color: yellow;")
+        self.internal_trace_width_edit = QLineEdit()
+        self.internal_trace_width_edit.setFixedWidth(75)
+        self.internal_trace_width_edit.setStyleSheet("background-color: yellow;")
 
-        self.min_area_result = QLineEdit()
-        self.min_area_result.setReadOnly(True)
-        self.min_area_result.setFixedWidth(75)
+        self.external_trace_width_edit = QLineEdit()
+        self.external_trace_width_edit.setFixedWidth(75)
+        self.external_trace_width_edit.setStyleSheet("background-color: yellow;")
+
+        self.min_area_result_internal = QLineEdit()
+        self.min_area_result_internal.setReadOnly(True)
+        self.min_area_result_internal.setFixedWidth(75)
+
+        self.min_area_result_external = QLineEdit()
+        self.min_area_result_external.setReadOnly(True)
+        self.min_area_result_external.setFixedWidth(75)
 
         self.actual_area_result = QLineEdit()
         self.actual_area_result.setReadOnly(True)
@@ -59,6 +67,10 @@ class FormWindow(QMainWindow):
         self.internal_width_result = QLineEdit()
         self.internal_width_result.setReadOnly(True)
         self.internal_width_result.setFixedWidth(75)
+
+        self.external_width_result = QLineEdit()
+        self.external_width_result.setReadOnly(True)
+        self.external_width_result.setFixedWidth(75)
 
         self.internal_resistance_result = QLineEdit()
         self.internal_resistance_result.setReadOnly(True)
@@ -86,15 +98,22 @@ class FormWindow(QMainWindow):
         form_layout.addRow("Temp Rise in Deg C", self.temp_rise_edit)
         form_layout.addRow("Copper Weight in oz/ft^2", self.copper_weight_edit)
         form_layout.addRow("Ambient Temperature in Deg C", self.ambient_temp_edit)
-        form_layout.addRow("Trace Width in mils", self.trace_width_edit)
+        form_layout.addRow("INTERNAL Trace Width in mils", self.internal_trace_width_edit)
+        form_layout.addRow("EXTERNAL Trace Width in mils", self.external_trace_width_edit)
 
         spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
 
         form_layout.addRow("RESULTS:", QWidget())
 
-        form_layout.addRow("Minimum Trace Area in mils^2", self.min_area_result)
-        self.min_area_result.setStyleSheet("background-color: lightgreen;")
+        form_layout.addRow("Minimum INTERNAL Trace Area in mils^2", self.min_area_result_internal)
+        self.min_area_result_internal.setStyleSheet("background-color: lightgreen;")
+
+        spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("Minimum EXTERNAL Trace Area in mils^2", self.min_area_result_external)
+        self.min_area_result_external.setStyleSheet("background-color: lightgreen;")
 
         spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
@@ -105,8 +124,14 @@ class FormWindow(QMainWindow):
         spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
 
-        form_layout.addRow("Minimum Trace Width in mils", self.internal_width_result)
+        form_layout.addRow("INTERNAL Minimum Trace Width in mils", self.internal_width_result)
         self.internal_width_result.setStyleSheet("background-color: lightgreen;")
+
+        spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        form_layout.addItem(spacer)
+
+        form_layout.addRow("EXTERNAL Minimum Trace Width in mils", self.external_width_result)
+        self.external_width_result.setStyleSheet("background-color: lightgreen;")
 
         spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
@@ -138,28 +163,45 @@ class FormWindow(QMainWindow):
 
     def run_calc(self):
 
-        # Calculate Minimum Trace Area
+        # Calculate Minimum Internal Trace Area
         amps = float(self.amps_edit.text())
         temp_rise_C = float(self.temp_rise_edit.text())
 
-        min_trace_area = calc_trace_area_min(amps,temp_rise_C)
+        min_trace_area_internal = calc_internal_trace_area_min(amps,temp_rise_C)
 
-        self.min_area_result.setText(str(min_trace_area))
+        self.min_area_result_internal.setText(str(min_trace_area_internal))
 
-        # Calculate Actual Trace Area
+        # Calculate Minimum External Trace Area
+        min_trace_area_external = calc_external_trace_area_min(amps,temp_rise_C)
+
+        self.min_area_result_external.setText(str(min_trace_area_external))
+
+        # Calculate Internal Actual Trace Area
         weight = float(self.copper_weight_edit.text())
         converted_weight = weight * 1.378
 
-        actual_trace_width = float(self.trace_width_edit.text())
+        actual_internal_trace_width = float(self.internal_trace_width_edit.text())
 
-        actual_trace_area = calc_trace_area_actual(actual_trace_width,converted_weight)
+        internal_actual_trace_area = calc_trace_area_actual(actual_internal_trace_width,converted_weight)
 
-        self.actual_area_result.setText(str(actual_trace_area))
+        self.actual_area_result.setText(str(internal_actual_trace_area))
+
+        # Calculate External Actual Trace Area
+        actual_external_trace_width = float(self.external_trace_width_edit.text())
+
+        external_actual_trace_area = calc_trace_area_actual(actual_external_trace_width,converted_weight)
+
+        self.actual_area_result.setText(str(external_actual_trace_area))
 
         # Calculate Minimum Internal Trace Width
-        trace_width_internal = calc_min_trace_width_internal(min_trace_area, converted_weight)
+        internal_trace_width = calc_min_trace_width_internal(min_trace_area_internal, converted_weight)
 
-        self.internal_width_result.setText(str(trace_width_internal))
+        self.internal_width_result.setText(str(internal_trace_width))
+
+        # Calculate Minimum External Trace Width
+        external_trace_width = calc_min_trace_width_external(min_trace_area_external, converted_weight)
+
+        self.external_width_result.setText(str(external_trace_width))
 
 
 if __name__ == '__main__':
