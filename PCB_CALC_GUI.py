@@ -107,13 +107,13 @@ class FormWindow(QMainWindow):
 
         form_layout.addRow("RESULTS:", QWidget())
 
-        form_layout.addRow("Minimum INTERNAL Trace Area in mils^2", self.min_area_result_internal)
+        form_layout.addRow("INTERNAL Minimum Trace Area in mils^2", self.min_area_result_internal)
         self.min_area_result_internal.setStyleSheet("background-color: lightgreen;")
 
         spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         form_layout.addItem(spacer)
 
-        form_layout.addRow("Minimum EXTERNAL Trace Area in mils^2", self.min_area_result_external)
+        form_layout.addRow("EXTERNAL Minimum Trace Area in mils^2", self.min_area_result_external)
         self.min_area_result_external.setStyleSheet("background-color: lightgreen;")
 
         spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
