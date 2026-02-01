@@ -34,7 +34,11 @@ def calc_external_trace_area_min(amps,input_temp_rise):
     area_min = (amps / (external_k * (input_temp_rise ** b))) ** (1 / c)
     return round(area_min,4)
 
-def calc_trace_area_actual(trace_width_actual,thickness_mils):
+def calc_internal_trace_area_actual(trace_width_actual,thickness_mils):
+    area_actual = trace_width_actual * thickness_mils
+    return round(area_actual,4)
+
+def calc_external_trace_area_actual(trace_width_actual,thickness_mils):
     area_actual = trace_width_actual * thickness_mils
     return round(area_actual,4)
 
@@ -46,12 +50,12 @@ def calc_min_trace_width_external(area,thickness_mils):
     width = area/thickness_mils
     return round(width,4)
 
-def calc_internal_trace_resistance(resistivity,length,trace_area,alpha,temp_ambient):
-    resistance = (resistivity*(length/trace_area))*(1+(alpha*(temp_ambient-25)))
+def calc_internal_trace_resistance(length,trace_area,temp_ambient):
+    resistance = (rho_copper*(length/trace_area))*(1+(alpha_copper*(temp_ambient-25)))
     return round(resistance,4)
 
-def calc_external_trace_resistance(resistivity,length,trace_area,alpha,temp_ambient):
-    resistance = (resistivity*(length/trace_area))*(1+(alpha*(temp_ambient-25)))
+def calc_external_trace_resistance(length,trace_area,temp_ambient):
+    resistance = (rho_copper*(length/trace_area))*(1+(alpha_copper*(temp_ambient-25)))
     return round(resistance,4)
 
 def calc_internal_trace_voltage_drop(amps,resistance):
@@ -79,9 +83,8 @@ if __name__ == "__main__":
 
         copper_thickness_mils: float = copper_thickness * 1.378  # Convert copper thickness from oz/ft^2 to mils
 
-        internal_area_actual = calc_trace_area_actual(trace_width, copper_thickness_mils)
-        internal_trace_resistance = calc_internal_trace_resistance(rho_copper, trace_length, internal_area_actual,
-                                                                   alpha_copper, ambient_temp)
+        internal_area_actual = calc_internal_trace_area_actual(trace_width, copper_thickness_mils)
+        internal_trace_resistance = calc_internal_trace_resistance(trace_length,internal_area_actual,ambient_temp)
         internal_voltage_drop = calc_internal_trace_voltage_drop(current, internal_trace_resistance)
 
         print(f"Voltage Drop is: {internal_voltage_drop:.4f} Volts")
@@ -94,7 +97,7 @@ if __name__ == "__main__":
 
         copper_thickness_mils: float = copper_thickness * 1.378  # Convert copper thickness from oz/ft^2 to mils
 
-        internal_area_min = calc_internal_trace_area_min(current, internal_k, temp_rise, b, c)
+        internal_area_min = calc_internal_trace_area_min(current,temp_rise)
         internal_min_trace_width = calc_min_trace_width_internal(internal_area_min, copper_thickness_mils)
 
         print(f"Minimum Internal Trace Width is: {internal_min_trace_width:.4f} mils")
@@ -109,9 +112,8 @@ if __name__ == "__main__":
 
         copper_thickness_mils: float = copper_thickness * 1.378  # Convert copper thickness from oz/ft^2 to mils
 
-        external_area_actual = calc_trace_area_actual(trace_width, copper_thickness_mils)
-        external_trace_resistance = calc_external_trace_resistance(rho_copper, trace_length, external_area_actual,
-                                                                   alpha_copper, ambient_temp)
+        external_area_actual = calc_external_trace_area_actual(trace_width, copper_thickness_mils)
+        external_trace_resistance = calc_external_trace_resistance(trace_length,external_area_actual,ambient_temp)
         external_voltage_drop = calc_external_trace_voltage_drop(current, external_trace_resistance)
 
         print(f"Voltage Drop is: {external_voltage_drop:.4f} Volts")
@@ -124,7 +126,7 @@ if __name__ == "__main__":
 
         copper_thickness_mils: float = copper_thickness * 1.378  # Convert copper thickness from oz/ft^2 to mils
 
-        external_area_min = calc_external_trace_area_min(current, external_k, temp_rise, b, c)
+        external_area_min = calc_external_trace_area_min(current,temp_rise)
         external_min_trace_width = calc_min_trace_width_external(external_area_min, copper_thickness_mils)
 
         print(f"Minimum External Trace Width is: {external_min_trace_width:.4f} mils")
