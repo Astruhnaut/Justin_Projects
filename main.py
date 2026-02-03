@@ -1,23 +1,3 @@
-internal_trace_resistance = float
-
-external_trace_resistance = float
-
-internal_voltage_drop = float
-
-external_voltage_drop = float
-
-internal_min_trace_width = float
-actual_trace_width_internal = float
-
-external_min_trace_width = float
-actual_trace_width_external = float
-
-internal_area_min = float
-internal_area_actual = float
-
-external_area_min = float
-external_area_actual = float
-
 internal_k: float = .024
 external_k: float = .048
 b: float = 0.44
