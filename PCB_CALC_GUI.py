@@ -182,14 +182,20 @@ class FormWindow(QMainWindow):
         weight = float(self.copper_weight_edit.text())
         converted_weight = weight * 1.378
 
-        actual_internal_trace_width = float(self.internal_trace_width_edit.text())
+        if self.internal_trace_width_edit.text() == "":
+            actual_internal_trace_width = 1
+        else:
+            actual_internal_trace_width = float(self.internal_trace_width_edit.text())
 
         internal_actual_trace_area = calc_internal_trace_area_actual(actual_internal_trace_width,converted_weight)
 
         self.internal_actual_area_result.setText(str(internal_actual_trace_area))
 
         # Calculate External Actual Trace Area
-        actual_external_trace_width = float(self.external_trace_width_edit.text())
+        if self.external_trace_width_edit.text() == "":
+            actual_external_trace_width = 1
+        else:
+            actual_external_trace_width = float(self.external_trace_width_edit.text())
 
         external_actual_trace_area = calc_external_trace_area_actual(actual_external_trace_width,converted_weight)
 
