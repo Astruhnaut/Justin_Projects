@@ -161,6 +161,7 @@ class FormWindow(QMainWindow):
 
 
         main_layout.addLayout(form_layout)
+
         main_layout.addWidget(self.calculate)
 
     def run_calc(self):
