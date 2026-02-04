@@ -37,8 +37,15 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout = QVBoxLayout()
         self.trace_width_tab.setLayout(trace_width_tab_layout)
 
+        #*******INPUTS*******
+
+        label_inputs = QLabel("INPUTS")
+        label_inputs.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        trace_width_tab_layout.addWidget(label_inputs)
+
         amps_hbox = QHBoxLayout()
-        amps_label = QLabel("Enter Desired Trace Current")
+        amps_label = QLabel("Desired Trace Current in Amps")
         amps_edit = QLineEdit()
         amps_edit.setFixedWidth(75)
 
@@ -48,20 +55,132 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(amps_hbox)
 
+        internal_width_hbox = QHBoxLayout()
+        internal_width_label = QLabel("INTERNAL Trace Width in mils")
+        internal_width_edit = QLineEdit()
+        internal_width_edit.setFixedWidth(75)
+
+        internal_width_hbox.addWidget(internal_width_label)
+        internal_width_hbox.addWidget(internal_width_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(internal_width_hbox)
+
+        external_width_hbox = QHBoxLayout()
+        external_width_label = QLabel("EXTERNAL Trace Width in mils")
+        external_width_edit = QLineEdit()
+        external_width_edit.setFixedWidth(75)
+
+        external_width_hbox.addWidget(external_width_label)
+        external_width_hbox.addWidget(external_width_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(external_width_hbox)
+
+        temp_rise_hbox = QHBoxLayout()
+        temp_rise_label = QLabel("Temperature Rise in Celsius")
+        temp_rise_edit = QLineEdit()
+        temp_rise_edit.setFixedWidth(75)
+
+        temp_rise_hbox.addWidget(temp_rise_label)
+        temp_rise_hbox.addWidget(temp_rise_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(temp_rise_hbox)
+
+        copper_weight_hbox = QHBoxLayout()
+        copper_weight_label = QLabel("Copper Weight in oz/ft^2")
+        copper_weight_edit = QLineEdit()
+        copper_weight_edit.setFixedWidth(75)
+
+        copper_weight_hbox.addWidget(copper_weight_label)
+        copper_weight_hbox.addWidget(copper_weight_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(copper_weight_hbox)
+
+        #*******RESULTS*******
+
+        # Create a spacer between INPUTS and RESULTS
         spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         trace_width_tab_layout.addItem(spacer)
 
-        trace_width_hbox = QHBoxLayout()
-        trace_width_label = QLabel("INTERNAL Minimum Trace Width")
+        label_results = QLabel("RESULTS")
+        label_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        trace_width_tab_layout.addWidget(label_results)
+
+        internal_trace_width_hbox = QHBoxLayout()
+        internal_trace_width_label = QLabel("INTERNAL Minimum Trace Width in mils")
         min_trace_width_internal_result = QLineEdit()
         min_trace_width_internal_result.setReadOnly(True)
         min_trace_width_internal_result.setFixedWidth(75)
 
-        trace_width_hbox.addWidget(trace_width_label)
-        trace_width_hbox.addWidget(min_trace_width_internal_result)
+        internal_trace_width_hbox.addWidget(internal_trace_width_label)
+        internal_trace_width_hbox.addWidget(min_trace_width_internal_result)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(trace_width_hbox)
+        trace_width_tab_layout.addLayout(internal_trace_width_hbox)
+
+        internal_min_area_hbox = QHBoxLayout()
+        internal_min_area_label = QLabel("INTERNAL Minimum Trace Area in mils^2")
+        min_trace_area_internal_result = QLineEdit()
+        min_trace_area_internal_result.setReadOnly(True)
+        min_trace_area_internal_result.setFixedWidth(75)
+
+        internal_min_area_hbox.addWidget(internal_min_area_label)
+        internal_min_area_hbox.addWidget(min_trace_area_internal_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(internal_min_area_hbox)
+
+        internal_actual_area_hbox = QHBoxLayout()
+        internal_actual_area_label = QLabel("INTERNAL Actual Trace Area in mils^2")
+        actual_trace_area_internal_result = QLineEdit()
+        actual_trace_area_internal_result.setReadOnly(True)
+        actual_trace_area_internal_result.setFixedWidth(75)
+
+        internal_actual_area_hbox.addWidget(internal_actual_area_label)
+        internal_actual_area_hbox.addWidget(actual_trace_area_internal_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(internal_actual_area_hbox)
+
+        external_trace_width_hbox = QHBoxLayout()
+        external_trace_width_label = QLabel("EXTERNAL Minimum Trace Width in mils")
+        min_trace_width_external_result = QLineEdit()
+        min_trace_width_external_result.setReadOnly(True)
+        min_trace_width_external_result.setFixedWidth(75)
+
+        external_trace_width_hbox.addWidget(external_trace_width_label)
+        external_trace_width_hbox.addWidget(min_trace_width_external_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(external_trace_width_hbox)
+
+        external_min_area_hbox = QHBoxLayout()
+        external_min_area_label = QLabel("EXTERNAL Minimum Trace Area in mils^2")
+        min_trace_area_external_result = QLineEdit()
+        min_trace_area_external_result.setReadOnly(True)
+        min_trace_area_external_result.setFixedWidth(75)
+
+        external_min_area_hbox.addWidget(external_min_area_label)
+        external_min_area_hbox.addWidget(min_trace_area_external_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(external_min_area_hbox)
+
+        external_actual_area_hbox = QHBoxLayout()
+        external_actual_area_label = QLabel("EXTERNAL Actual Trace Area in mils^2")
+        actual_trace_area_external_result = QLineEdit()
+        actual_trace_area_external_result.setReadOnly(True)
+        actual_trace_area_external_result.setFixedWidth(75)
+
+        external_actual_area_hbox.addWidget(external_actual_area_label)
+        external_actual_area_hbox.addWidget(actual_trace_area_external_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_width_tab_layout.addLayout(external_actual_area_hbox)
 
         # Set the layout for the main window
         self.setLayout(trace_width_tab_layout)
