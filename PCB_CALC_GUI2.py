@@ -16,11 +16,11 @@ class TabWidgetApp(QMainWindow):
         self.main_layout = QVBoxLayout()
         self.central_widget.setLayout(self.main_layout)
 
+        self.central_widget.setStyleSheet("background-color green;")
+
         # Create the QTabWidget
         self.tabs = QTabWidget()
         self.main_layout.addWidget(self.tabs)
-
-        self.central_widget.setStyleSheet("background-color: white;")
 
         # Create the trace width tab
         self.trace_width_tab = QWidget()
@@ -40,6 +40,7 @@ class TabWidgetApp(QMainWindow):
         #*******INPUTS*******
 
         label_inputs = QLabel("INPUTS")
+        label_inputs.setStyleSheet("color: yellow;")
         label_inputs.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         trace_width_tab_layout.addWidget(label_inputs)
@@ -106,6 +107,7 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout.addItem(spacer)
 
         label_results = QLabel("RESULTS")
+        label_results.setStyleSheet("color: lightgreen;")
         label_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         trace_width_tab_layout.addWidget(label_results)
