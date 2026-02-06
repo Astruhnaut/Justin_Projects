@@ -216,6 +216,9 @@ class TabWidgetApp(QMainWindow):
         length_hbox.addWidget(length_label)
         length_hbox.addWidget(self.length_edit)
 
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(length_hbox)
+
 
         #*******RESULTS*******
 
@@ -223,6 +226,9 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_hbox = QHBoxLayout()
         internal_resistance_label = QLabel("INTERNAL Trace Resistance")
         self.internal_resistance_result = QLineEdit()
+        self.internal_resistance_result.setReadOnly(True)
+        self.internal_resistance_result.setFixedWidth(75)
+
         trace_resistance_hbox.addWidget(internal_resistance_label)
         trace_resistance_hbox.addWidget(self.internal_resistance_result)
 
@@ -231,9 +237,12 @@ class TabWidgetApp(QMainWindow):
 
         trace_voltage_drop_hbox = QHBoxLayout()
         internal_drop_label = QLabel("INTERNAL Trace Voltage Drop")
-        self.internal_drop_edit = QLineEdit()
+        self.internal_resistance_result = QLineEdit()
+        self.internal_resistance_result.setReadOnly(True)
+        self.internal_resistance_result.setFixedWidth(75)
+
         trace_resistance_hbox.addWidget(internal_drop_label)
-        trace_resistance_hbox.addWidget(self.internal_drop_edit)
+        trace_resistance_hbox.addWidget(self.internal_resistance_result)
 
         # Add horizontal layout to the main vertical layout
         trace_resistance_tab_layout.addLayout(trace_voltage_drop_hbox)
