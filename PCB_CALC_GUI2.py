@@ -185,7 +185,7 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout.addLayout(external_actual_area_hbox)
 
         calculate = QPushButton("Calculate Results")
-        calculate.setStyleSheet("background-color: lightblue;")
+        calculate.setStyleSheet("background-color: green;")
         calculate.clicked.connect(self.run_calc)
         trace_width_tab_layout.addWidget(calculate)
 
@@ -296,18 +296,6 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         trace_resistance_tab_layout.addLayout(trace_resistance_internal_hbox)
 
-        trace_resistance_external_hbox = QHBoxLayout()
-        external_resistance_label = QLabel("EXTERNAL Trace Resistance")
-        self.external_resistance_result = QLineEdit()
-        self.external_resistance_result.setReadOnly(True)
-        self.external_resistance_result.setFixedWidth(75)
-
-        trace_resistance_external_hbox.addWidget(external_resistance_label)
-        trace_resistance_external_hbox.addWidget(self.external_resistance_result)
-
-        # Add horizontal layout to the main vertical layout
-        trace_resistance_tab_layout.addLayout(trace_resistance_external_hbox)
-
         trace_voltage_drop_internal_hbox = QHBoxLayout()
         internal_drop_label = QLabel("INTERNAL Trace Voltage Drop")
         self.internal_drop_result = QLineEdit()
@@ -319,6 +307,18 @@ class TabWidgetApp(QMainWindow):
 
         # Add horizontal layout to the main vertical layout
         trace_resistance_tab_layout.addLayout(trace_voltage_drop_internal_hbox)
+
+        trace_resistance_external_hbox = QHBoxLayout()
+        external_resistance_label = QLabel("EXTERNAL Trace Resistance")
+        self.external_resistance_result = QLineEdit()
+        self.external_resistance_result.setReadOnly(True)
+        self.external_resistance_result.setFixedWidth(75)
+
+        trace_resistance_external_hbox.addWidget(external_resistance_label)
+        trace_resistance_external_hbox.addWidget(self.external_resistance_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(trace_resistance_external_hbox)
 
         trace_voltage_drop_external_hbox = QHBoxLayout()
         external_drop_label = QLabel("EXTERNAL Trace Voltage Drop")
@@ -333,7 +333,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(trace_voltage_drop_external_hbox)
 
         calculate = QPushButton("Calculate Results")
-        calculate.setStyleSheet("background-color: lightblue;")
+        calculate.setStyleSheet("background-color: green;")
         calculate.clicked.connect(self.run_vd_resistance_calc)
         trace_resistance_tab_layout.addWidget(calculate)
 
@@ -392,10 +392,10 @@ class TabWidgetApp(QMainWindow):
 
     def run_vd_resistance_calc(self):
 
-        self.amps = float(self.vd_amps_edit.text())
+        amps = float(self.vd_amps_edit.text())
         length = float(self.length_edit.text())
         temp_ambient = float(self.ambient_temp_edit.text())
-        weight = float(self.copper_weight_edit.text())
+        weight = float(self.vd_copper_weight_edit.text())
         converted_weight = weight * 1.378
 
         # Calculate Internal Trace Resistance
@@ -412,7 +412,7 @@ class TabWidgetApp(QMainWindow):
         self.internal_resistance_result.setText(str(vd_internal_resistance))
 
         # Calculate Internal Trace Voltage Drop
-        voltage_drop_internal = calc_internal_trace_voltage_drop(self.amps,vd_internal_resistance)
+        voltage_drop_internal = calc_internal_trace_voltage_drop(amps,vd_internal_resistance)
 
         self.internal_drop_result.setText(str(voltage_drop_internal))
 
@@ -430,7 +430,7 @@ class TabWidgetApp(QMainWindow):
         self.external_resistance_result.setText(str(vd_external_resistance))
 
         # Calculate External Trace Voltage Drop
-        voltage_drop_external = calc_external_trace_voltage_drop(self.amps,vd_external_resistance)
+        voltage_drop_external = calc_external_trace_voltage_drop(amps,vd_external_resistance)
 
         self.external_drop_result.setText(str(voltage_drop_external))
 
