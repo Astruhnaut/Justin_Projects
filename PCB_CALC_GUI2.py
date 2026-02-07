@@ -345,15 +345,15 @@ class TabWidgetApp(QMainWindow):
     def run_calc(self):
 
         # Calculate Minimum Internal Trace Area
-        self.amps = float(self.amps_edit.text())
+        amps = float(self.amps_edit.text())
         temp_rise_C = float(self.temp_rise_edit.text())
 
-        min_trace_area_internal = calc_internal_trace_area_min(self.amps, temp_rise_C)
+        min_trace_area_internal = calc_internal_trace_area_min(amps, temp_rise_C)
 
         self.min_trace_area_internal_result.setText(str(min_trace_area_internal))
 
         # Calculate Minimum External Trace Area
-        min_trace_area_external = calc_external_trace_area_min(self.amps, temp_rise_C)
+        min_trace_area_external = calc_external_trace_area_min(amps, temp_rise_C)
 
         self.min_trace_area_external_result.setText(str(min_trace_area_external))
 
