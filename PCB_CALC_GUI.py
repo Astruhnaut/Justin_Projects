@@ -164,6 +164,13 @@ class FormWindow(QMainWindow):
 
         main_layout.addWidget(self.calculate)
 
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = FormWindow()
+    window.show()
+    sys.exit(app.exec())
+
     def run_calc(self):
 
         # Calculate Minimum Internal Trace Area
@@ -234,11 +241,4 @@ class FormWindow(QMainWindow):
         voltage_drop_external = calc_external_trace_voltage_drop(amps,external_resistance)
 
         self.external_voltage_result.setText(str(voltage_drop_external))
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = FormWindow()
-    window.show()
-    sys.exit(app.exec())
 

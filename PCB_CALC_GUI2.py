@@ -186,7 +186,7 @@ class TabWidgetApp(QMainWindow):
 
         calculate = QPushButton("Calculate Results")
         calculate.setStyleSheet("background-color: lightblue;")
-        calculate.clicked.connect(self.run_width_calc)
+        calculate.clicked.connect(self.run_calc)
         trace_width_tab_layout.addWidget(calculate)
 
         # Set the layout for the main window
@@ -200,13 +200,45 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout = QVBoxLayout()
         self.trace_resistance_tab.setLayout(trace_resistance_tab_layout)
 
-
         # *******INPUTS*******
 
         label_inputs = QLabel("INPUTS")
         label_inputs.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         trace_resistance_tab_layout.addWidget(label_inputs)
+
+        vd_amps_hbox = QHBoxLayout()
+        length_label = QLabel("Desired Current in Amps")
+        self.vd_amps_edit = QLineEdit()
+        self.vd_amps_edit.setFixedWidth(75)
+
+        vd_amps_hbox.addWidget(length_label)
+        vd_amps_hbox.addWidget(self.vd_amps_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(vd_amps_hbox)
+
+        vd_internal_width_hbox = QHBoxLayout()
+        vd_internal_width_label = QLabel("INTERNAL Trace Width in mils")
+        self.vd_internal_width_edit = QLineEdit()
+        self.vd_internal_width_edit.setFixedWidth(75)
+
+        vd_internal_width_hbox.addWidget(vd_internal_width_label)
+        vd_internal_width_hbox.addWidget(self.vd_internal_width_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(vd_internal_width_hbox)
+
+        vd_external_width_hbox = QHBoxLayout()
+        vd_external_width_label = QLabel("EXTERNAL Trace Width in mils")
+        self.vd_external_width_edit = QLineEdit()
+        self.vd_external_width_edit.setFixedWidth(75)
+
+        vd_external_width_hbox.addWidget(vd_external_width_label)
+        vd_external_width_hbox.addWidget(self.vd_external_width_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(vd_external_width_hbox)
 
         length_hbox = QHBoxLayout()
         length_label = QLabel("Actual Trace Length in mils")
@@ -219,37 +251,90 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         trace_resistance_tab_layout.addLayout(length_hbox)
 
+        ambient_temp_hbox = QHBoxLayout()
+        ambient_temp_label = QLabel("Ambient Temp in Celsius")
+        self.ambient_temp_edit = QLineEdit()
+        self.ambient_temp_edit.setFixedWidth(75)
+
+        ambient_temp_hbox.addWidget(ambient_temp_label)
+        ambient_temp_hbox.addWidget(self.ambient_temp_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(ambient_temp_hbox)
+
+        vd_copper_weight_hbox = QHBoxLayout()
+        vd_copper_weight_label = QLabel("Copper Weight in oz/ft^2")
+        self.vd_copper_weight_edit = QLineEdit()
+        self.vd_copper_weight_edit.setFixedWidth(75)
+
+        vd_copper_weight_hbox.addWidget(vd_copper_weight_label)
+        vd_copper_weight_hbox.addWidget(self.vd_copper_weight_edit)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(vd_copper_weight_hbox)
+
 
         #*******RESULTS*******
 
+        spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        trace_resistance_tab_layout.addItem(spacer)
 
-        trace_resistance_hbox = QHBoxLayout()
+        label_results = QLabel("RESULTS")
+        label_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        trace_resistance_tab_layout.addWidget(label_results)
+
+        trace_resistance_internal_hbox = QHBoxLayout()
         internal_resistance_label = QLabel("INTERNAL Trace Resistance")
         self.internal_resistance_result = QLineEdit()
         self.internal_resistance_result.setReadOnly(True)
         self.internal_resistance_result.setFixedWidth(75)
 
-        trace_resistance_hbox.addWidget(internal_resistance_label)
-        trace_resistance_hbox.addWidget(self.internal_resistance_result)
+        trace_resistance_internal_hbox.addWidget(internal_resistance_label)
+        trace_resistance_internal_hbox.addWidget(self.internal_resistance_result)
 
         # Add horizontal layout to the main vertical layout
-        trace_resistance_tab_layout.addLayout(trace_resistance_hbox)
+        trace_resistance_tab_layout.addLayout(trace_resistance_internal_hbox)
 
-        trace_voltage_drop_hbox = QHBoxLayout()
+        trace_resistance_external_hbox = QHBoxLayout()
+        external_resistance_label = QLabel("EXTERNAL Trace Resistance")
+        self.external_resistance_result = QLineEdit()
+        self.external_resistance_result.setReadOnly(True)
+        self.external_resistance_result.setFixedWidth(75)
+
+        trace_resistance_external_hbox.addWidget(external_resistance_label)
+        trace_resistance_external_hbox.addWidget(self.external_resistance_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(trace_resistance_external_hbox)
+
+        trace_voltage_drop_internal_hbox = QHBoxLayout()
         internal_drop_label = QLabel("INTERNAL Trace Voltage Drop")
-        self.internal_resistance_result = QLineEdit()
-        self.internal_resistance_result.setReadOnly(True)
-        self.internal_resistance_result.setFixedWidth(75)
+        self.internal_drop_result = QLineEdit()
+        self.internal_drop_result.setReadOnly(True)
+        self.internal_drop_result.setFixedWidth(75)
 
-        trace_resistance_hbox.addWidget(internal_drop_label)
-        trace_resistance_hbox.addWidget(self.internal_resistance_result)
+        trace_voltage_drop_internal_hbox.addWidget(internal_drop_label)
+        trace_voltage_drop_internal_hbox.addWidget(self.internal_drop_result)
 
         # Add horizontal layout to the main vertical layout
-        trace_resistance_tab_layout.addLayout(trace_voltage_drop_hbox)
+        trace_resistance_tab_layout.addLayout(trace_voltage_drop_internal_hbox)
+
+        trace_voltage_drop_external_hbox = QHBoxLayout()
+        external_drop_label = QLabel("EXTERNAL Trace Voltage Drop")
+        self.external_drop_result = QLineEdit()
+        self.external_drop_result.setReadOnly(True)
+        self.external_drop_result.setFixedWidth(75)
+
+        trace_voltage_drop_external_hbox.addWidget(external_drop_label)
+        trace_voltage_drop_external_hbox.addWidget(self.external_drop_result)
+
+        # Add horizontal layout to the main vertical layout
+        trace_resistance_tab_layout.addLayout(trace_voltage_drop_external_hbox)
 
         calculate = QPushButton("Calculate Results")
         calculate.setStyleSheet("background-color: lightblue;")
-        calculate.clicked.connect(self.run_resistance_calc)
+        calculate.clicked.connect(self.run_vd_resistance_calc)
         trace_resistance_tab_layout.addWidget(calculate)
 
         # Set the layout for the main window
@@ -257,7 +342,7 @@ class TabWidgetApp(QMainWindow):
 
         trace_resistance_tab_layout.addStretch()
 
-    def run_width_calc(self):
+    def run_calc(self):
 
         # Calculate Minimum Internal Trace Area
         self.amps = float(self.amps_edit.text())
@@ -265,7 +350,7 @@ class TabWidgetApp(QMainWindow):
 
         min_trace_area_internal = calc_internal_trace_area_min(self.amps, temp_rise_C)
 
-        self.min_trace_area_internal_result.setText(str(self.min_trace_area_internal_result))
+        self.min_trace_area_internal_result.setText(str(min_trace_area_internal))
 
         # Calculate Minimum External Trace Area
         min_trace_area_external = calc_external_trace_area_min(self.amps, temp_rise_C)
@@ -281,9 +366,9 @@ class TabWidgetApp(QMainWindow):
         else:
             actual_internal_trace_width = float(self.internal_width_edit.text())
 
-        self.internal_actual_trace_area = calc_internal_trace_area_actual(actual_internal_trace_width, converted_weight)
+        internal_actual_trace_area = calc_internal_trace_area_actual(actual_internal_trace_width, converted_weight)
 
-        self.actual_trace_area_internal_result.setText(str(self.internal_actual_trace_area))
+        self.actual_trace_area_internal_result.setText(str(internal_actual_trace_area))
 
         # Calculate External Actual Trace Area
         if self.external_width_edit.text() == "":
@@ -291,9 +376,9 @@ class TabWidgetApp(QMainWindow):
         else:
             actual_external_trace_width = float(self.external_width_edit.text())
 
-        self.external_actual_trace_area = calc_external_trace_area_actual(actual_external_trace_width, converted_weight)
+        external_actual_trace_area = calc_external_trace_area_actual(actual_external_trace_width, converted_weight)
 
-        self.actual_trace_area_external_result.setText(str(self.external_actual_trace_area))
+        self.actual_trace_area_external_result.setText(str(external_actual_trace_area))
 
         # Calculate Minimum Internal Trace Width
         internal_trace_width = calc_min_trace_width_internal(min_trace_area_internal, converted_weight)
@@ -305,30 +390,49 @@ class TabWidgetApp(QMainWindow):
 
         self.min_trace_width_external_result.setText(str(external_trace_width))
 
-    def run_resistance_calc(self):
+    def run_vd_resistance_calc(self):
 
-        # Calculate Internal Trace Resistance
+        self.amps = float(self.vd_amps_edit.text())
         length = float(self.length_edit.text())
         temp_ambient = float(self.ambient_temp_edit.text())
+        weight = float(self.copper_weight_edit.text())
+        converted_weight = weight * 1.378
 
-        internal_resistance = calc_internal_trace_resistance(length,self.internal_actual_trace_area,temp_ambient)
+        # Calculate Internal Trace Resistance
 
-        self.internal_resistance_result.setText(str(internal_resistance))
+        if self.vd_internal_width_edit.text() == "":
+            actual_internal_trace_width = 1
+        else:
+            actual_internal_trace_width = float(self.vd_internal_width_edit.text())
 
-        # Calculate External Trace Resistance
-        external_resistance = calc_external_trace_resistance(length,self.external_actual_trace_area,temp_ambient)
+        internal_actual_trace_area = calc_internal_trace_area_actual(actual_internal_trace_width, converted_weight)
 
-        self.external_resistance_result.setText(str(external_resistance))
+        vd_internal_resistance = calc_internal_trace_resistance(length,internal_actual_trace_area,temp_ambient)
+
+        self.internal_resistance_result.setText(str(vd_internal_resistance))
 
         # Calculate Internal Trace Voltage Drop
-        voltage_drop_internal = calc_internal_trace_voltage_drop(self.amps,internal_resistance)
+        voltage_drop_internal = calc_internal_trace_voltage_drop(self.amps,vd_internal_resistance)
 
-        self.internal_voltage_result.setText(str(voltage_drop_internal))
+        self.internal_drop_result.setText(str(voltage_drop_internal))
+
+        # Calculate External Trace Resistance
+
+        if self.vd_external_width_edit.text() == "":
+            actual_external_trace_width = 1
+        else:
+            actual_external_trace_width = float(self.vd_external_width_edit.text())
+
+        external_actual_trace_area = calc_internal_trace_area_actual(actual_external_trace_width, converted_weight)
+
+        vd_external_resistance = calc_external_trace_resistance(length,external_actual_trace_area,temp_ambient)
+
+        self.external_resistance_result.setText(str(vd_external_resistance))
 
         # Calculate External Trace Voltage Drop
-        voltage_drop_external = calc_external_trace_voltage_drop(self.amps,external_resistance)
+        voltage_drop_external = calc_external_trace_voltage_drop(self.amps,vd_external_resistance)
 
-        self.external_voltage_result.setText(str(voltage_drop_external))
+        self.external_drop_result.setText(str(voltage_drop_external))
 
 
 if __name__ == '__main__':
