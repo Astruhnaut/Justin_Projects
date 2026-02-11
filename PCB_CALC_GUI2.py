@@ -31,6 +31,19 @@ class TabWidgetApp(QMainWindow):
         self.tabs.addTab(self.trace_resistance_tab, "Voltage Drop/Resistance")
         self.init_drop_resistance_tab_ui()
 
+        self.diff_pair_impedance_tab = QWidget()
+        self.tabs.addTab(self.diff_pair_impedance_tab, "Differential Pair Impedance")
+        self.init_diff_pair_tab_ui()
+
+    def init_diff_pair_tab_ui(self):
+
+        diff_pair_tab_layout = QVBoxLayout()
+
+        self.diff_pair_impedance_tab.setLayout(diff_pair_tab_layout)
+
+        # Set the layout for the main window
+        self.setLayout(diff_pair_tab_layout)
+
     def init_trace_width_tab_ui(self):
 
         trace_width_tab_layout = QVBoxLayout()

@@ -45,3 +45,7 @@ def calc_internal_trace_voltage_drop(amps,resistance):
 def calc_external_trace_voltage_drop(amps,resistance):
     voltage_drop = (amps*resistance)
     return round(voltage_drop,4)
+
+def calc_epsilon_effective(epsilon_relative,dielectric_height,trace_width):
+    epsilon_effective = (((epsilon_relative+1)/2) + ((epsilon_relative-1)/2) * (1 + (12 * dielectric_height / trace_width) ** (-0.5)))
+    return round(epsilon_effective,4)
