@@ -1,6 +1,7 @@
 import sys
 
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QLineEdit, QFormLayout, QMainWindow, QSpacerItem, QSizePolicy, QTabWidget
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QLineEdit, \
+    QFormLayout, QMainWindow, QSpacerItem, QSizePolicy, QTabWidget, QCheckBox
 from PyQt6.QtCore import Qt
 from main import *
 
@@ -32,7 +33,7 @@ class TabWidgetApp(QMainWindow):
         self.init_drop_resistance_tab_ui()
 
         self.diff_pair_impedance_tab = QWidget()
-        self.tabs.addTab(self.diff_pair_impedance_tab, "Differential Pair Impedance")
+        self.tabs.addTab(self.diff_pair_impedance_tab, "Microstrip Diff Pair")
         self.init_diff_pair_tab_ui()
 
     def init_diff_pair_tab_ui(self):
@@ -49,6 +50,20 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout = QVBoxLayout()
 
         self.trace_width_tab.setLayout(trace_width_tab_layout)
+
+        self.internal_calc_checkbox = QCheckBox('Calc INTERNAL')
+        self.internal_calc_checkbox.setChecked(False) # Initially NOT checked
+
+        self.internal_calc_checkbox.toggled.connect(self.toggle_external)
+
+        trace_width_tab_layout.addWidget(self.internal_calc_checkbox)
+
+        self.external_calc_checkbox = QCheckBox('Calc EXTERNAL')
+        self.external_calc_checkbox.setChecked(False) # Initially NOT checked
+
+        self.external_calc_checkbox.toggled.connect(self.toggle_internal)
+
+        trace_width_tab_layout.addWidget(self.external_calc_checkbox)
 
         #*******INPUTS*******
 
@@ -69,22 +84,22 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout.addLayout(amps_hbox)
 
         internal_width_hbox = QHBoxLayout()
-        internal_width_label = QLabel("INTERNAL Trace Width in mils")
+        self.internal_width_label = QLabel("INTERNAL Trace Width in mils")
         self.internal_width_edit = QLineEdit()
         self.internal_width_edit.setFixedWidth(75)
 
-        internal_width_hbox.addWidget(internal_width_label)
+        internal_width_hbox.addWidget(self.internal_width_label)
         internal_width_hbox.addWidget(self.internal_width_edit)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(internal_width_hbox)
 
         external_width_hbox = QHBoxLayout()
-        external_width_label = QLabel("EXTERNAL Trace Width in mils")
+        self.external_width_label = QLabel("EXTERNAL Trace Width in mils")
         self.external_width_edit = QLineEdit()
         self.external_width_edit.setFixedWidth(75)
 
-        external_width_hbox.addWidget(external_width_label)
+        external_width_hbox.addWidget(self.external_width_label)
         external_width_hbox.addWidget(self.external_width_edit)
 
         # Add horizontal layout to the main vertical layout
@@ -126,72 +141,72 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout.addWidget(label_results)
 
         internal_trace_width_hbox = QHBoxLayout()
-        internal_trace_width_label = QLabel("INTERNAL Minimum Trace Width in mils")
+        self.internal_trace_width_label = QLabel("INTERNAL Minimum Trace Width in mils")
         self.min_trace_width_internal_result = QLineEdit()
         self.min_trace_width_internal_result.setReadOnly(True)
         self.min_trace_width_internal_result.setFixedWidth(75)
 
-        internal_trace_width_hbox.addWidget(internal_trace_width_label)
+        internal_trace_width_hbox.addWidget(self.internal_trace_width_label)
         internal_trace_width_hbox.addWidget(self.min_trace_width_internal_result)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(internal_trace_width_hbox)
 
         internal_min_area_hbox = QHBoxLayout()
-        internal_min_area_label = QLabel("INTERNAL Minimum Trace Area in mils^2")
+        self.internal_min_area_label = QLabel("INTERNAL Minimum Trace Area in mils^2")
         self.min_trace_area_internal_result = QLineEdit()
         self.min_trace_area_internal_result.setReadOnly(True)
         self.min_trace_area_internal_result.setFixedWidth(75)
 
-        internal_min_area_hbox.addWidget(internal_min_area_label)
+        internal_min_area_hbox.addWidget(self.internal_min_area_label)
         internal_min_area_hbox.addWidget(self.min_trace_area_internal_result)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(internal_min_area_hbox)
 
         internal_actual_area_hbox = QHBoxLayout()
-        internal_actual_area_label = QLabel("INTERNAL Actual Trace Area in mils^2")
+        self.internal_actual_area_label = QLabel("INTERNAL Actual Trace Area in mils^2")
         self.actual_trace_area_internal_result = QLineEdit()
         self.actual_trace_area_internal_result.setReadOnly(True)
         self.actual_trace_area_internal_result.setFixedWidth(75)
 
-        internal_actual_area_hbox.addWidget(internal_actual_area_label)
+        internal_actual_area_hbox.addWidget(self.internal_actual_area_label)
         internal_actual_area_hbox.addWidget(self.actual_trace_area_internal_result)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(internal_actual_area_hbox)
 
         external_trace_width_hbox = QHBoxLayout()
-        external_trace_width_label = QLabel("EXTERNAL Minimum Trace Width in mils")
+        self.external_trace_width_label = QLabel("EXTERNAL Minimum Trace Width in mils")
         self.min_trace_width_external_result = QLineEdit()
         self.min_trace_width_external_result.setReadOnly(True)
         self.min_trace_width_external_result.setFixedWidth(75)
 
-        external_trace_width_hbox.addWidget(external_trace_width_label)
+        external_trace_width_hbox.addWidget(self.external_trace_width_label)
         external_trace_width_hbox.addWidget(self.min_trace_width_external_result)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(external_trace_width_hbox)
 
         external_min_area_hbox = QHBoxLayout()
-        external_min_area_label = QLabel("EXTERNAL Minimum Trace Area in mils^2")
+        self.external_min_area_label = QLabel("EXTERNAL Minimum Trace Area in mils^2")
         self.min_trace_area_external_result = QLineEdit()
         self.min_trace_area_external_result.setReadOnly(True)
         self.min_trace_area_external_result.setFixedWidth(75)
 
-        external_min_area_hbox.addWidget(external_min_area_label)
+        external_min_area_hbox.addWidget(self.external_min_area_label)
         external_min_area_hbox.addWidget(self.min_trace_area_external_result)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(external_min_area_hbox)
 
         external_actual_area_hbox = QHBoxLayout()
-        external_actual_area_label = QLabel("EXTERNAL Actual Trace Area in mils^2")
+        self.external_actual_area_label = QLabel("EXTERNAL Actual Trace Area in mils^2")
         self.actual_trace_area_external_result = QLineEdit()
         self.actual_trace_area_external_result.setReadOnly(True)
         self.actual_trace_area_external_result.setFixedWidth(75)
 
-        external_actual_area_hbox.addWidget(external_actual_area_label)
+        external_actual_area_hbox.addWidget(self.external_actual_area_label)
         external_actual_area_hbox.addWidget(self.actual_trace_area_external_result)
 
         # Add horizontal layout to the main vertical layout
@@ -446,6 +461,35 @@ class TabWidgetApp(QMainWindow):
         voltage_drop_external = calc_external_trace_voltage_drop(amps,vd_external_resistance)
 
         self.external_drop_result.setText(str(voltage_drop_external))
+
+
+    def toggle_external(self, checked):
+
+        self.external_width_label.setVisible(not checked)
+        self.external_width_edit.setVisible(not checked)
+
+        self.external_trace_width_label.setVisible(not checked)
+        self.min_trace_width_external_result.setVisible(not checked)
+
+        self.external_min_area_label.setVisible(not checked)
+        self.min_trace_area_external_result.setVisible(not checked)
+
+        self.external_actual_area_label.setVisible(not checked)
+        self.actual_trace_area_external_result.setVisible(not checked)
+
+    def toggle_internal(self, checked):
+
+        self.internal_width_label.setVisible(not checked)
+        self.internal_width_edit.setVisible(not checked)
+
+        self.internal_trace_width_label.setVisible(not checked)
+        self.min_trace_width_internal_result.setVisible(not checked)
+
+        self.internal_min_area_label.setVisible(not checked)
+        self.min_trace_area_internal_result.setVisible(not checked)
+
+        self.internal_actual_area_label.setVisible(not checked)
+        self.actual_trace_area_internal_result.setVisible(not checked)
 
 
 if __name__ == '__main__':
