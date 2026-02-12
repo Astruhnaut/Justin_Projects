@@ -505,17 +505,6 @@ class TabWidgetApp(QMainWindow):
         self.internal_actual_area_label.setVisible(not checked)
         self.actual_trace_area_internal_result.setVisible(not checked)
 
-    def toggle_internal_vd_ohms(self, checked):
-
-        self.vd_internal_width_label.setVisible(not checked)
-        self.vd_internal_width_edit.setVisible(not checked)
-
-        self.internal_resistance_label.setVisible(not checked)
-        self.internal_resistance_result.setVisible(not checked)
-
-        self.internal_drop_label.setVisible(not checked)
-        self.internal_drop_result.setVisible(not checked)
-
     def toggle_external_vd_ohms(self, checked):
 
         self.vd_external_width_label.setVisible(not checked)
@@ -526,6 +515,17 @@ class TabWidgetApp(QMainWindow):
 
         self.external_drop_label.setVisible(not checked)
         self.external_drop_result.setVisible(not checked)
+
+    def toggle_internal_vd_ohms(self, checked):
+
+        self.vd_internal_width_label.setVisible(not checked)
+        self.vd_internal_width_edit.setVisible(not checked)
+
+        self.internal_resistance_label.setVisible(not checked)
+        self.internal_resistance_result.setVisible(not checked)
+
+        self.internal_drop_label.setVisible(not checked)
+        self.internal_drop_result.setVisible(not checked)
 
 
 if __name__ == '__main__':
