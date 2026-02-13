@@ -42,8 +42,83 @@ class TabWidgetApp(QMainWindow):
 
         self.diff_pair_impedance_tab.setLayout(diff_pair_tab_layout)
 
+        label_inputs = QLabel("INPUTS")
+        label_inputs.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        diff_pair_tab_layout.addWidget(label_inputs)
+
+        # *******INPUTS*******
+
+        epsilon_r_hbox = QHBoxLayout()
+        epsilon_r_label = QLabel("Relative Permittivity")
+        self.epsilon_r_edit = QLineEdit()
+        self.epsilon_r_edit.setFixedWidth(75)
+
+        epsilon_r_hbox.addWidget(epsilon_r_label)
+        epsilon_r_hbox.addWidget(self.amps_edit)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(epsilon_r_hbox)
+
+        dielectric_height_hbox = QHBoxLayout()
+        dielectric_height_label = QLabel("Dielectric Height")
+        self.dielectric_height_edit = QLineEdit()
+        self.dielectric_height_edit.setFixedWidth(75)
+
+        dielectric_height_hbox.addWidget(dielectric_height_label)
+        dielectric_height_hbox.addWidget(self.dielectric_height_edit)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(dielectric_height_hbox)
+
+        trace_thickness_hbox = QHBoxLayout()
+        trace_thickness_label = QLabel("Trace Thickness")
+        self.trace_thickness_edit = QLineEdit()
+        self.trace_thickness_edit.setFixedWidth(75)
+
+        trace_thickness_hbox.addWidget(trace_thickness_label)
+        trace_thickness_hbox.addWidget(self.trace_thickness_edit)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(trace_thickness_hbox)
+
+        trace_width_hbox = QHBoxLayout()
+        trace_width_label = QLabel("Trace Width")
+        self.trace_width_edit = QLineEdit()
+        self.trace_width_edit.setFixedWidth(75)
+
+        trace_width_hbox.addWidget(trace_width_label)
+        trace_width_hbox.addWidget(self.trace_width_edit)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(trace_width_hbox)
+
+        trace_spacing_hbox = QHBoxLayout()
+        trace_spacing_label = QLabel("Trace Spacing")
+        self.trace_spacing_edit = QLineEdit()
+        self.trace_spacing_edit.setFixedWidth(75)
+
+        trace_spacing_hbox.addWidget(trace_spacing_label)
+        trace_spacing_hbox.addWidget(self.trace_spacing_edit)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(trace_spacing_hbox)
+
+
+
+
+
+
+
+        calculate = QPushButton("Calculate Results")
+        calculate.setStyleSheet("background-color: green;")
+        calculate.clicked.connect(self.run_impedance_calc)
+        diff_pair_tab_layout.addWidget(calculate)
+
         # Set the layout for the main window
         self.setLayout(diff_pair_tab_layout)
+
+        diff_pair_tab_layout.addStretch()
 
     def init_trace_width_tab_ui(self):
 
@@ -475,6 +550,17 @@ class TabWidgetApp(QMainWindow):
         voltage_drop_external = calc_external_trace_voltage_drop(amps,vd_external_resistance)
 
         self.external_drop_result.setText(str(voltage_drop_external))
+
+    def run_impedance_calc(self):
+
+        epsilon_r = float(self.epsilon_r_edit.text())
+        height = float(self.dielectric_height_edit.text())
+        width = float(self.trace_width_edit.text())
+        thickness = float(self.trace_thickness_edit.text())
+
+        effective_epsilon = calc_epsilon_effective(epsilon_r,height,width)
+
+        effective_width = calc_width_effective(width,thickness,height)
 
 
     def toggle_external_width(self, checked):
