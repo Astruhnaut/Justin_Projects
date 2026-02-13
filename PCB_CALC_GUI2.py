@@ -55,7 +55,7 @@ class TabWidgetApp(QMainWindow):
         self.epsilon_r_edit.setFixedWidth(75)
 
         epsilon_r_hbox.addWidget(epsilon_r_label)
-        epsilon_r_hbox.addWidget(self.amps_edit)
+        epsilon_r_hbox.addWidget(self.epsilon_r_edit)
 
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(epsilon_r_hbox)
@@ -476,7 +476,7 @@ class TabWidgetApp(QMainWindow):
 
         # Calculate Internal Actual Trace Area
         weight = float(self.copper_weight_edit.text())
-        converted_weight = weight * 1.378
+        converted_weight = convert_copper_weight(weight)
 
         if self.internal_width_edit.text() == "":
             actual_internal_trace_width = 1
@@ -513,7 +513,7 @@ class TabWidgetApp(QMainWindow):
         length = float(self.length_edit.text())
         temp_ambient = float(self.ambient_temp_edit.text())
         weight = float(self.vd_copper_weight_edit.text())
-        converted_weight = weight * 1.378
+        converted_weight = convert_copper_weight(weight)
 
         # Calculate Internal Trace Resistance
 
