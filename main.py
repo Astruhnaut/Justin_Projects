@@ -5,7 +5,7 @@ external_k: float = .048
 b: float = 0.44
 c: float = 0.725
 
-eta: int = 377  # Intrinsic impedance of free space
+eta: float = 377  # Intrinsic impedance of free space
 rho_copper: float = 0.00067716  # Resistivity of copper in mils
 alpha_copper: float = 0.00393   # Temperature coefficient of Copper
 
