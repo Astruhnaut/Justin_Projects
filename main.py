@@ -53,6 +53,12 @@ def convert_copper_weight(weight):
     converted_weight = weight * 1.378
     return converted_weight
 
+def calc_total_thickness(base_weight,plating_weight):
+    base_weight_converted = convert_copper_weight(base_weight)
+    plating_weight_converted = convert_copper_weight(plating_weight)
+    total_thickness = base_weight_converted + plating_weight_converted
+    return total_thickness
+
 def calc_epsilon_effective(epsilon_relative,dielectric_height,trace_width):
     epsilon_effective = (((epsilon_relative+1)/2) + ((epsilon_relative-1)/2) * (1 + (12 * dielectric_height / trace_width) ** (-0.5)))
     return round(epsilon_effective,4)

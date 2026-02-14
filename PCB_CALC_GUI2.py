@@ -9,7 +9,7 @@ class TabWidgetApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("PCB DESIGN CALCULATOR")
-        self.setGeometry(625, 100, 450, 550)
+        self.setGeometry(625, 100, 450, 625)
 
         # Set up layout
         self.central_widget = QWidget()
@@ -49,6 +49,7 @@ class TabWidgetApp(QMainWindow):
 
         # *******INPUTS*******
 
+        # Relative Permittivity Input
         epsilon_r_hbox = QHBoxLayout()
         epsilon_r_label = QLabel("Relative Permittivity")
         self.epsilon_r_edit = QLineEdit()
@@ -60,8 +61,9 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(epsilon_r_hbox)
 
+        # Dielectric Height Input
         dielectric_height_hbox = QHBoxLayout()
-        dielectric_height_label = QLabel("Dielectric Height")
+        dielectric_height_label = QLabel("Dielectric Height (mils)")
         self.dielectric_height_edit = QLineEdit()
         self.dielectric_height_edit.setFixedWidth(75)
 
@@ -71,19 +73,33 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(dielectric_height_hbox)
 
-        trace_thickness_hbox = QHBoxLayout()
-        trace_thickness_label = QLabel("Trace Thickness")
-        self.trace_thickness_edit = QLineEdit()
-        self.trace_thickness_edit.setFixedWidth(75)
+        # Base Copper Weight Input
+        base_weight_hbox = QHBoxLayout()
+        base_weight_label = QLabel("Base Copper Weight (oz/ft^2)")
+        self.base_weight_edit = QLineEdit()
+        self.base_weight_edit.setFixedWidth(75)
 
-        trace_thickness_hbox.addWidget(trace_thickness_label)
-        trace_thickness_hbox.addWidget(self.trace_thickness_edit)
+        base_weight_hbox.addWidget(base_weight_label)
+        base_weight_hbox.addWidget(self.base_weight_edit)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(trace_thickness_hbox)
+        diff_pair_tab_layout.addLayout(base_weight_hbox)
 
+        # Plating Weight Input
+        plating_weight_hbox = QHBoxLayout()
+        plating_weight_label = QLabel("Plating Copper Weight (oz/ft^2)")
+        self.plating_weight_edit = QLineEdit()
+        self.plating_weight_edit.setFixedWidth(75)
+
+        plating_weight_hbox.addWidget(plating_weight_label)
+        plating_weight_hbox.addWidget(self.plating_weight_edit)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(plating_weight_hbox)
+
+        # Trace Width Input
         trace_width_hbox = QHBoxLayout()
-        trace_width_label = QLabel("Trace Width")
+        trace_width_label = QLabel("Trace Width (mils)")
         self.trace_width_edit = QLineEdit()
         self.trace_width_edit.setFixedWidth(75)
 
@@ -93,8 +109,9 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(trace_width_hbox)
 
+        # Trace Spacing Input
         trace_spacing_hbox = QHBoxLayout()
-        trace_spacing_label = QLabel("Trace Spacing")
+        trace_spacing_label = QLabel("Trace Spacing (mils)")
         self.trace_spacing_edit = QLineEdit()
         self.trace_spacing_edit.setFixedWidth(75)
 
@@ -105,10 +122,61 @@ class TabWidgetApp(QMainWindow):
         diff_pair_tab_layout.addLayout(trace_spacing_hbox)
 
 
+        # *******RESULTS*******
+
+        # Create a spacer between INPUTS and RESULTS
+        spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        diff_pair_tab_layout.addItem(spacer)
+
+        label_results = QLabel("RESULTS")
+        label_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        diff_pair_tab_layout.addWidget(label_results)
+
+        # Effective Permittivity Result
+        epsilon_eff_hbox = QHBoxLayout()
+        epsilon_eff_label = QLabel("Effective Permittivity")
+        self.epsilon_eff_result = QLineEdit()
+        self.epsilon_eff_result.setReadOnly(True)
+        self.epsilon_eff_result.setFixedWidth(75)
+
+        epsilon_eff_hbox.addWidget(epsilon_eff_label)
+        epsilon_eff_hbox.addWidget(self.epsilon_eff_result)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(epsilon_eff_hbox)
+
+        # Effective Trace Width Result
+        width_eff_hbox = QHBoxLayout()
+        width_eff_label = QLabel("Effective Trace Width (mils)")
+        self.width_eff_result = QLineEdit()
+        self.width_eff_result.setReadOnly(True)
+        self.width_eff_result.setFixedWidth(75)
+
+        width_eff_hbox.addWidget(width_eff_label)
+        width_eff_hbox.addWidget(self.width_eff_result)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(width_eff_hbox)
+
+        # Single Trace Impedance Result
+        single_trace_impedance_hbox = QHBoxLayout()
+        single_trace_impedance_label = QLabel("Single Trace Impedance (Ohms)")
+        self.single_trace_impedance_result = QLineEdit()
+        self.single_trace_impedance_result.setReadOnly(True)
+        self.single_trace_impedance_result.setFixedWidth(75)
+
+        single_trace_impedance_hbox.addWidget(single_trace_impedance_label)
+        single_trace_impedance_hbox.addWidget(self.single_trace_impedance_result)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(single_trace_impedance_hbox)
 
 
 
 
+
+        diff_pair_tab_layout.addStretch()
 
         calculate = QPushButton("Calculate Results")
         calculate.setStyleSheet("background-color: green;")
@@ -117,8 +185,6 @@ class TabWidgetApp(QMainWindow):
 
         # Set the layout for the main window
         self.setLayout(diff_pair_tab_layout)
-
-        diff_pair_tab_layout.addStretch()
 
     def init_trace_width_tab_ui(self):
 
@@ -287,6 +353,8 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(external_actual_area_hbox)
 
+        trace_width_tab_layout.addStretch()
+
         calculate = QPushButton("Calculate Results")
         calculate.setStyleSheet("background-color: green;")
         calculate.clicked.connect(self.run_calc)
@@ -294,8 +362,6 @@ class TabWidgetApp(QMainWindow):
 
         # Set the layout for the main window
         self.setLayout(trace_width_tab_layout)
-
-        trace_width_tab_layout.addStretch()
 
 
     def init_drop_resistance_tab_ui(self):
@@ -449,6 +515,8 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         trace_resistance_tab_layout.addLayout(trace_voltage_drop_external_hbox)
 
+        trace_resistance_tab_layout.addStretch()
+
         calculate = QPushButton("Calculate Results")
         calculate.setStyleSheet("background-color: green;")
         calculate.clicked.connect(self.run_vd_resistance_calc)
@@ -456,8 +524,6 @@ class TabWidgetApp(QMainWindow):
 
         # Set the layout for the main window
         self.setLayout(trace_resistance_tab_layout)
-
-        trace_resistance_tab_layout.addStretch()
 
     def run_calc(self):
 
@@ -556,7 +622,8 @@ class TabWidgetApp(QMainWindow):
         epsilon_r = float(self.epsilon_r_edit.text())
         height = float(self.dielectric_height_edit.text())
         width = float(self.trace_width_edit.text())
-        thickness = float(self.trace_thickness_edit.text())
+
+        thickness = calc_total_thickness(float(self.base_weight_edit.text()),float(self.plating_weight_edit.text()))
 
         effective_epsilon = calc_epsilon_effective(epsilon_r,height,width)
 
