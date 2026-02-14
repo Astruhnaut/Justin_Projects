@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['pcb_calc_gui.py'],
+    ['PCB_CALC_GUI.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='pcb_calc_gui',
+    name='PCB_CALC_GUI',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
