@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPu
     QFormLayout, QMainWindow, QSpacerItem, QSizePolicy, QTabWidget, QCheckBox
 from PyQt6.QtCore import Qt
 from main import *
+from LabeledEdit import *
 
 class TabWidgetApp(QMainWindow):
     def __init__(self):
@@ -50,16 +51,12 @@ class TabWidgetApp(QMainWindow):
         # *******INPUTS*******
 
         # Relative Permittivity Input
-        epsilon_r_hbox = QHBoxLayout()
-        epsilon_r_label = QLabel("Relative Permittivity")
-        self.epsilon_r_edit = QLineEdit()
-        self.epsilon_r_edit.setFixedWidth(75)
 
-        epsilon_r_hbox.addWidget(epsilon_r_label)
-        epsilon_r_hbox.addWidget(self.epsilon_r_edit)
+        self.epsilon_r_widget = LabeledLineEdit("Relative Permittivity")
+        diff_pair_tab_layout.addWidget(self.epsilon_r_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(epsilon_r_hbox)
+        diff_pair_tab_layout.addLayout(self.epsilon_r_widget.layout)
 
         # Dielectric Height Input
         dielectric_height_hbox = QHBoxLayout()
