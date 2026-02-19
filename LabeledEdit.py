@@ -2,8 +2,8 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QLineEdit
 
 
 class LabeledLineEdit(QWidget):
-    def __init__(self, label_text, width=75, parent=None):
-        super().__init__(parent)
+    def __init__(self, label_text, width=75):
+        super().__init__()
 
         self.layout = QHBoxLayout(self)
         self.label = QLabel(label_text)
@@ -19,6 +19,3 @@ class LabeledLineEdit(QWidget):
 
     def setText(self, value):
         self.line_edit.setText(value)
-
-    def setPlaceholder(self, text):
-        self.line_edit.setPlaceholderText(text)

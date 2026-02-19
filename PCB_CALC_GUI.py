@@ -51,7 +51,6 @@ class TabWidgetApp(QMainWindow):
         # *******INPUTS*******
 
         # Relative Permittivity Input
-
         self.epsilon_r_widget = LabeledLineEdit("Relative Permittivity")
         diff_pair_tab_layout.addWidget(self.epsilon_r_widget)
 
@@ -59,64 +58,39 @@ class TabWidgetApp(QMainWindow):
         diff_pair_tab_layout.addLayout(self.epsilon_r_widget.layout)
 
         # Dielectric Height Input
-        dielectric_height_hbox = QHBoxLayout()
-        dielectric_height_label = QLabel("Dielectric Height (mils)")
-        self.dielectric_height_edit = QLineEdit()
-        self.dielectric_height_edit.setFixedWidth(75)
-
-        dielectric_height_hbox.addWidget(dielectric_height_label)
-        dielectric_height_hbox.addWidget(self.dielectric_height_edit)
+        self.dielectric_height_widget = LabeledLineEdit("Dielectric Height (mils)")
+        diff_pair_tab_layout.addWidget(self.dielectric_height_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(dielectric_height_hbox)
+        diff_pair_tab_layout.addLayout(self.dielectric_height_widget.layout)
 
         # Base Copper Weight Input
-        base_weight_hbox = QHBoxLayout()
-        base_weight_label = QLabel("Base Copper Weight (oz/ft^2)")
-        self.base_weight_edit = QLineEdit()
-        self.base_weight_edit.setFixedWidth(75)
-
-        base_weight_hbox.addWidget(base_weight_label)
-        base_weight_hbox.addWidget(self.base_weight_edit)
+        self.base_weight_widget = LabeledLineEdit("Base Copper Weight (oz/ft^2)")
+        diff_pair_tab_layout.addWidget(self.base_weight_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(base_weight_hbox)
+        diff_pair_tab_layout.addLayout(self.base_weight_widget.layout)
 
         # Plating Weight Input
-        plating_weight_hbox = QHBoxLayout()
-        plating_weight_label = QLabel("Plating Copper Weight (oz/ft^2)")
-        self.plating_weight_edit = QLineEdit()
-        self.plating_weight_edit.setFixedWidth(75)
-
-        plating_weight_hbox.addWidget(plating_weight_label)
-        plating_weight_hbox.addWidget(self.plating_weight_edit)
+        self.plating_weight_widget = LabeledLineEdit("Plating Copper Weight (oz/ft^2)")
+        diff_pair_tab_layout.addWidget(self.plating_weight_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(plating_weight_hbox)
+        diff_pair_tab_layout.addLayout(self.plating_weight_widget.layout)
 
         # Trace Width Input
-        trace_width_hbox = QHBoxLayout()
-        trace_width_label = QLabel("Trace Width (mils)")
-        self.trace_width_edit = QLineEdit()
-        self.trace_width_edit.setFixedWidth(75)
-
-        trace_width_hbox.addWidget(trace_width_label)
-        trace_width_hbox.addWidget(self.trace_width_edit)
+        self.trace_width_widget = LabeledLineEdit("Trace Width (mils)")
+        diff_pair_tab_layout.addWidget(self.trace_width_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(trace_width_hbox)
+        diff_pair_tab_layout.addLayout(self.trace_width_widget.layout)
 
         # Trace Spacing Input
-        trace_spacing_hbox = QHBoxLayout()
-        trace_spacing_label = QLabel("Trace Spacing (mils)")
-        self.trace_spacing_edit = QLineEdit()
-        self.trace_spacing_edit.setFixedWidth(75)
-
-        trace_spacing_hbox.addWidget(trace_spacing_label)
-        trace_spacing_hbox.addWidget(self.trace_spacing_edit)
+        self.trace_spacing_widget = LabeledLineEdit("Trace Spacing (mils)")
+        diff_pair_tab_layout.addWidget(self.trace_spacing_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(trace_spacing_hbox)
+        diff_pair_tab_layout.addLayout(self.trace_spacing_widget.layout)
 
 
         # *******RESULTS*******
@@ -131,45 +105,25 @@ class TabWidgetApp(QMainWindow):
         diff_pair_tab_layout.addWidget(label_results)
 
         # Effective Permittivity Result
-        epsilon_eff_hbox = QHBoxLayout()
-        epsilon_eff_label = QLabel("Effective Permittivity")
-        self.epsilon_eff_result = QLineEdit()
-        self.epsilon_eff_result.setReadOnly(True)
-        self.epsilon_eff_result.setFixedWidth(75)
-
-        epsilon_eff_hbox.addWidget(epsilon_eff_label)
-        epsilon_eff_hbox.addWidget(self.epsilon_eff_result)
+        self.epsilon_eff_result_widget = LabeledLineEdit("Effective Permittivity")
+        diff_pair_tab_layout.addWidget(self.epsilon_eff_result_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(epsilon_eff_hbox)
+        diff_pair_tab_layout.addLayout(self.epsilon_eff_result_widget.layout)
 
         # Effective Trace Width Result
-        width_eff_hbox = QHBoxLayout()
-        width_eff_label = QLabel("Effective Trace Width (mils)")
-        self.width_eff_result = QLineEdit()
-        self.width_eff_result.setReadOnly(True)
-        self.width_eff_result.setFixedWidth(75)
-
-        width_eff_hbox.addWidget(width_eff_label)
-        width_eff_hbox.addWidget(self.width_eff_result)
+        self.width_eff_result_widget = LabeledLineEdit("Effective Trace Width (mils)")
+        diff_pair_tab_layout.addWidget(self.width_eff_result_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(width_eff_hbox)
+        diff_pair_tab_layout.addLayout(self.width_eff_result_widget.layout)
 
         # Single Trace Impedance Result
-        single_trace_impedance_hbox = QHBoxLayout()
-        single_trace_impedance_label = QLabel("Single Trace Impedance (Ohms)")
-        self.single_trace_impedance_result = QLineEdit()
-        self.single_trace_impedance_result.setReadOnly(True)
-        self.single_trace_impedance_result.setFixedWidth(75)
-
-        single_trace_impedance_hbox.addWidget(single_trace_impedance_label)
-        single_trace_impedance_hbox.addWidget(self.single_trace_impedance_result)
+        self.single_trace_impedance_result_widget = LabeledLineEdit("Single Trace Impedance (Ohms)")
+        diff_pair_tab_layout.addWidget(self.single_trace_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(single_trace_impedance_hbox)
-
-
+        diff_pair_tab_layout.addLayout(self.single_trace_impedance_result_widget.layout)
 
 
 
@@ -210,60 +164,41 @@ class TabWidgetApp(QMainWindow):
 
         trace_width_tab_layout.addWidget(label_inputs)
 
-        amps_hbox = QHBoxLayout()
-        amps_label = QLabel("Desired Trace Current in Amps")
-        self.amps_edit = QLineEdit()
-        self.amps_edit.setFixedWidth(75)
-
-        amps_hbox.addWidget(amps_label)
-        amps_hbox.addWidget(self.amps_edit)
+        # Amps Input
+        self.amps_edit_widget = LabeledLineEdit("Desired Current (Amps)")
+        trace_width_tab_layout.addWidget(self.amps_edit_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(amps_hbox)
+        trace_width_tab_layout.addLayout(self.amps_edit_widget.layout)
 
-        internal_width_hbox = QHBoxLayout()
-        self.internal_width_label = QLabel("INTERNAL Trace Width in mils")
-        self.internal_width_edit = QLineEdit()
-        self.internal_width_edit.setFixedWidth(75)
-
-        internal_width_hbox.addWidget(self.internal_width_label)
-        internal_width_hbox.addWidget(self.internal_width_edit)
+        # Internal Trace Width Input
+        self.internal_trace_width_edit_widget = LabeledLineEdit("INTERNAL Trace Width (mils)")
+        trace_width_tab_layout.addWidget(self.internal_trace_width_edit_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(internal_width_hbox)
+        trace_width_tab_layout.addLayout(self.internal_trace_width_edit_widget.layout)
 
-        external_width_hbox = QHBoxLayout()
-        self.external_width_label = QLabel("EXTERNAL Trace Width in mils")
-        self.external_width_edit = QLineEdit()
-        self.external_width_edit.setFixedWidth(75)
-
-        external_width_hbox.addWidget(self.external_width_label)
-        external_width_hbox.addWidget(self.external_width_edit)
+        # External Trace Width Input
+        self.external_trace_width_edit_widget = LabeledLineEdit("EXTERNAL Trace Width (mils)")
+        trace_width_tab_layout.addWidget(self.external_trace_width_edit_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(external_width_hbox)
+        trace_width_tab_layout.addLayout(self.external_trace_width_edit_widget.layout)
 
-        temp_rise_hbox = QHBoxLayout()
-        temp_rise_label = QLabel("Temperature Rise in Celsius")
-        self.temp_rise_edit = QLineEdit()
-        self.temp_rise_edit.setFixedWidth(75)
-
-        temp_rise_hbox.addWidget(temp_rise_label)
-        temp_rise_hbox.addWidget(self.temp_rise_edit)
+        # Temperature Rise Input
+        self.temp_rise_edit_widget = LabeledLineEdit("Temp Rise (Celsius)")
+        trace_width_tab_layout.addWidget(self.temp_rise_edit_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(temp_rise_hbox)
-
-        copper_weight_hbox = QHBoxLayout()
-        copper_weight_label = QLabel("Copper Weight in oz/ft^2")
-        self.copper_weight_edit = QLineEdit()
-        self.copper_weight_edit.setFixedWidth(75)
-
-        copper_weight_hbox.addWidget(copper_weight_label)
-        copper_weight_hbox.addWidget(self.copper_weight_edit)
+        trace_width_tab_layout.addLayout(self.temp_rise_edit_widget.layout)
+        
+        # Copper Weight Input
+        self.copper_weight_edit_widget = LabeledLineEdit("Copper Weight (oz/ft^2)")
+        trace_width_tab_layout.addWidget(self.copper_weight_edit_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(copper_weight_hbox)
+        trace_width_tab_layout.addLayout(self.copper_weight_edit_widget.layout)
+
 
 
         #*******RESULTS*******
@@ -278,77 +213,53 @@ class TabWidgetApp(QMainWindow):
 
         trace_width_tab_layout.addWidget(label_results)
 
-        internal_trace_width_hbox = QHBoxLayout()
-        self.internal_trace_width_label = QLabel("INTERNAL Minimum Trace Width in mils")
-        self.min_trace_width_internal_result = QLineEdit()
-        self.min_trace_width_internal_result.setReadOnly(True)
-        self.min_trace_width_internal_result.setFixedWidth(75)
 
-        internal_trace_width_hbox.addWidget(self.internal_trace_width_label)
-        internal_trace_width_hbox.addWidget(self.min_trace_width_internal_result)
+        # Internal Minimum Trace Width Result
+        self.internal_trace_width_widget = LabeledLineEdit("INTERNAL Minimum Trace Width (mils)")
+        trace_width_tab_layout.addWidget(self.internal_trace_width_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(internal_trace_width_hbox)
+        trace_width_tab_layout.addLayout(self.internal_trace_width_widget.layout)
 
-        internal_min_area_hbox = QHBoxLayout()
-        self.internal_min_area_label = QLabel("INTERNAL Minimum Trace Area in mils^2")
-        self.min_trace_area_internal_result = QLineEdit()
-        self.min_trace_area_internal_result.setReadOnly(True)
-        self.min_trace_area_internal_result.setFixedWidth(75)
 
-        internal_min_area_hbox.addWidget(self.internal_min_area_label)
-        internal_min_area_hbox.addWidget(self.min_trace_area_internal_result)
+        # Internal Minimum Trace Area Result
+        self.internal_trace_area_widget = LabeledLineEdit("INTERNAL Minimum Trace Area (mils^2)")
+        trace_width_tab_layout.addWidget(self.internal_trace_area_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(internal_min_area_hbox)
+        trace_width_tab_layout.addLayout(self.internal_trace_area_widget.layout)
 
-        internal_actual_area_hbox = QHBoxLayout()
-        self.internal_actual_area_label = QLabel("INTERNAL Actual Trace Area in mils^2")
-        self.actual_trace_area_internal_result = QLineEdit()
-        self.actual_trace_area_internal_result.setReadOnly(True)
-        self.actual_trace_area_internal_result.setFixedWidth(75)
 
-        internal_actual_area_hbox.addWidget(self.internal_actual_area_label)
-        internal_actual_area_hbox.addWidget(self.actual_trace_area_internal_result)
+        # Internal Actual Trace Area Result
+        self.internal_actual_trace_area_widget = LabeledLineEdit("INTERNAL Actual Trace Area (mils^2)")
+        trace_width_tab_layout.addWidget(self.internal_actual_trace_area_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(internal_actual_area_hbox)
+        trace_width_tab_layout.addLayout(self.internal_actual_trace_area_widget.layout)
 
-        external_trace_width_hbox = QHBoxLayout()
-        self.external_trace_width_label = QLabel("EXTERNAL Minimum Trace Width in mils")
-        self.min_trace_width_external_result = QLineEdit()
-        self.min_trace_width_external_result.setReadOnly(True)
-        self.min_trace_width_external_result.setFixedWidth(75)
 
-        external_trace_width_hbox.addWidget(self.external_trace_width_label)
-        external_trace_width_hbox.addWidget(self.min_trace_width_external_result)
+        # External Minimum Trace Width Result
+        self.external_trace_width_widget = LabeledLineEdit("EXTERNAL Minimum Trace Width (mils)")
+        trace_width_tab_layout.addWidget(self.external_trace_width_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(external_trace_width_hbox)
+        trace_width_tab_layout.addLayout(self.external_trace_width_widget.layout)
 
-        external_min_area_hbox = QHBoxLayout()
-        self.external_min_area_label = QLabel("EXTERNAL Minimum Trace Area in mils^2")
-        self.min_trace_area_external_result = QLineEdit()
-        self.min_trace_area_external_result.setReadOnly(True)
-        self.min_trace_area_external_result.setFixedWidth(75)
 
-        external_min_area_hbox.addWidget(self.external_min_area_label)
-        external_min_area_hbox.addWidget(self.min_trace_area_external_result)
+        # External Minimum Trace Area Result
+        self.external_trace_area_widget = LabeledLineEdit("EXTERNAL Minimum Trace Area (mils^2)")
+        trace_width_tab_layout.addWidget(self.external_trace_area_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(external_min_area_hbox)
+        trace_width_tab_layout.addLayout(self.external_trace_area_widget.layout)
 
-        external_actual_area_hbox = QHBoxLayout()
-        self.external_actual_area_label = QLabel("EXTERNAL Actual Trace Area in mils^2")
-        self.actual_trace_area_external_result = QLineEdit()
-        self.actual_trace_area_external_result.setReadOnly(True)
-        self.actual_trace_area_external_result.setFixedWidth(75)
 
-        external_actual_area_hbox.addWidget(self.external_actual_area_label)
-        external_actual_area_hbox.addWidget(self.actual_trace_area_external_result)
+        # External Actual Trace Area Result
+        self.external_actual_trace_area_widget = LabeledLineEdit("EXTERNAL Actual Trace Area (mils^2)")
+        trace_width_tab_layout.addWidget(self.external_actual_trace_area_widget)
 
         # Add horizontal layout to the main vertical layout
-        trace_width_tab_layout.addLayout(external_actual_area_hbox)
+        trace_width_tab_layout.addLayout(self.external_actual_trace_area_widget.layout)
 
         trace_width_tab_layout.addStretch()
 
@@ -525,50 +436,50 @@ class TabWidgetApp(QMainWindow):
     def run_calc(self):
 
         # Calculate Minimum Internal Trace Area
-        amps = float(self.amps_edit.text())
-        temp_rise_C = float(self.temp_rise_edit.text())
+        amps = float(self.amps_edit_widget.text())
+        temp_rise_C = float(self.temp_rise_edit_widget.text())
 
         min_trace_area_internal = calc_internal_trace_area_min(amps, temp_rise_C)
 
-        self.min_trace_area_internal_result.setText(str(min_trace_area_internal))
+        self.internal_trace_area_widget.setText(str(min_trace_area_internal))
 
         # Calculate Minimum External Trace Area
         min_trace_area_external = calc_external_trace_area_min(amps, temp_rise_C)
 
-        self.min_trace_area_external_result.setText(str(min_trace_area_external))
+        self.external_trace_area_widget.setText(str(min_trace_area_external))
 
         # Calculate Internal Actual Trace Area
-        weight = float(self.copper_weight_edit.text())
+        weight = float(self.copper_weight_edit_widget.text())
         converted_weight = convert_copper_weight(weight)
 
-        if self.internal_width_edit.text() == "":
+        if self.internal_trace_width_edit_widget.text() == "":
             actual_internal_trace_width = 1
         else:
-            actual_internal_trace_width = float(self.internal_width_edit.text())
+            actual_internal_trace_width = float(self.internal_trace_width_edit_widget.text())
 
         internal_actual_trace_area = calc_internal_trace_area_actual(actual_internal_trace_width, converted_weight)
 
-        self.actual_trace_area_internal_result.setText(str(internal_actual_trace_area))
+        self.internal_actual_trace_area_widget.setText(str(internal_actual_trace_area))
 
         # Calculate External Actual Trace Area
-        if self.external_width_edit.text() == "":
+        if self.external_trace_width_edit_widget.text() == "":
             actual_external_trace_width = 1
         else:
-            actual_external_trace_width = float(self.external_width_edit.text())
+            actual_external_trace_width = float(self.external_trace_width_edit_widget.text())
 
         external_actual_trace_area = calc_external_trace_area_actual(actual_external_trace_width, converted_weight)
 
-        self.actual_trace_area_external_result.setText(str(external_actual_trace_area))
+        self.external_actual_trace_area_widget.setText(str(external_actual_trace_area))
 
         # Calculate Minimum Internal Trace Width
         internal_trace_width = calc_min_trace_width_internal(min_trace_area_internal, converted_weight)
 
-        self.min_trace_width_internal_result.setText(str(internal_trace_width))
+        self.internal_trace_width_widget.setText(str(internal_trace_width))
 
         # Calculate Minimum External Trace Width
         external_trace_width = calc_min_trace_width_external(min_trace_area_external, converted_weight)
 
-        self.min_trace_width_external_result.setText(str(external_trace_width))
+        self.external_trace_width_widget.setText(str(external_trace_width))
 
     def run_vd_resistance_calc(self):
 
@@ -616,11 +527,11 @@ class TabWidgetApp(QMainWindow):
 
     def run_impedance_calc(self):
 
-        epsilon_r = float(self.epsilon_r_edit.text())
-        height = float(self.dielectric_height_edit.text())
-        width = float(self.trace_width_edit.text())
+        epsilon_r = float(self.epsilon_r_widget.text())
+        height = float(self.dielectric_height_widget.text())
+        width = float(self.trace_width_widget.text())
 
-        thickness = calc_total_thickness(float(self.base_weight_edit.text()),float(self.plating_weight_edit.text()))
+        thickness = calc_total_thickness(float(self.base_weight_widget.text()),float(self.plating_weight_widget.text()))
 
         effective_epsilon = calc_epsilon_effective(epsilon_r,height,width)
 
@@ -629,31 +540,23 @@ class TabWidgetApp(QMainWindow):
 
     def toggle_external_width(self, checked):
 
-        self.external_width_label.setVisible(not checked)
-        self.external_width_edit.setVisible(not checked)
+        self.external_trace_width_edit_widget.setVisible(not checked)
 
-        self.external_trace_width_label.setVisible(not checked)
-        self.min_trace_width_external_result.setVisible(not checked)
+        self.external_trace_width_widget.setVisible(not checked)
 
-        self.external_min_area_label.setVisible(not checked)
-        self.min_trace_area_external_result.setVisible(not checked)
+        self.external_trace_area_widget.setVisible(not checked)
 
-        self.external_actual_area_label.setVisible(not checked)
-        self.actual_trace_area_external_result.setVisible(not checked)
+        self.external_actual_trace_area_widget.setVisible(not checked)
 
     def toggle_internal_width(self, checked):
 
-        self.internal_width_label.setVisible(not checked)
-        self.internal_width_edit.setVisible(not checked)
+        self.internal_trace_width_edit_widget.setVisible(not checked)
 
-        self.internal_trace_width_label.setVisible(not checked)
-        self.min_trace_width_internal_result.setVisible(not checked)
+        self.internal_trace_width_widget.setVisible(not checked)
 
-        self.internal_min_area_label.setVisible(not checked)
-        self.min_trace_area_internal_result.setVisible(not checked)
+        self.internal_trace_area_widget.setVisible(not checked)
 
-        self.internal_actual_area_label.setVisible(not checked)
-        self.actual_trace_area_internal_result.setVisible(not checked)
+        self.internal_actual_trace_area_widget.setVisible(not checked)
 
     def toggle_external_vd_ohms(self, checked):
 
