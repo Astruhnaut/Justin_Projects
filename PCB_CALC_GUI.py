@@ -143,14 +143,14 @@ class TabWidgetApp(QMainWindow):
 
         self.trace_width_tab.setLayout(trace_width_tab_layout)
 
-        self.internal_calc_checkbox = QCheckBox('Calc INTERNAL')
+        self.internal_calc_checkbox = QCheckBox('focus INTERNAL')
         self.internal_calc_checkbox.setChecked(False) # Initially NOT checked
 
         self.internal_calc_checkbox.toggled.connect(self.toggle_external_width)
 
         trace_width_tab_layout.addWidget(self.internal_calc_checkbox)
 
-        self.external_calc_checkbox = QCheckBox('Calc EXTERNAL')
+        self.external_calc_checkbox = QCheckBox('focus EXTERNAL')
         self.external_calc_checkbox.setChecked(False) # Initially NOT checked
 
         self.external_calc_checkbox.toggled.connect(self.toggle_internal_width)
@@ -277,14 +277,14 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout = QVBoxLayout()
         self.trace_resistance_tab.setLayout(trace_resistance_tab_layout)
 
-        self.internal_calc_checkbox2 = QCheckBox('Calc INTERNAL')
+        self.internal_calc_checkbox2 = QCheckBox('focus INTERNAL')
         self.internal_calc_checkbox2.setChecked(False) # Initially NOT checked
 
         self.internal_calc_checkbox2.toggled.connect(self.toggle_external_vd_ohms)
 
         trace_resistance_tab_layout.addWidget(self.internal_calc_checkbox2)
 
-        self.external_calc_checkbox2 = QCheckBox('Calc EXTERNAL')
+        self.external_calc_checkbox2 = QCheckBox('focus EXTERNAL')
         self.external_calc_checkbox2.setChecked(False) # Initially NOT checked
 
         self.external_calc_checkbox2.toggled.connect(self.toggle_internal_vd_ohms)
@@ -299,7 +299,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addWidget(label_inputs)
 
         vd_amps_hbox = QHBoxLayout()
-        length_label = QLabel("Desired Current in Amps")
+        length_label = QLabel("Desired Current (Amps)")
         self.vd_amps_edit = QLineEdit()
         self.vd_amps_edit.setFixedWidth(75)
 
@@ -310,7 +310,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(vd_amps_hbox)
 
         vd_internal_width_hbox = QHBoxLayout()
-        self.vd_internal_width_label = QLabel("INTERNAL Trace Width in mils")
+        self.vd_internal_width_label = QLabel("INTERNAL Trace Width (mils)")
         self.vd_internal_width_edit = QLineEdit()
         self.vd_internal_width_edit.setFixedWidth(75)
 
@@ -321,7 +321,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(vd_internal_width_hbox)
 
         vd_external_width_hbox = QHBoxLayout()
-        self.vd_external_width_label = QLabel("EXTERNAL Trace Width in mils")
+        self.vd_external_width_label = QLabel("EXTERNAL Trace Width (mils)")
         self.vd_external_width_edit = QLineEdit()
         self.vd_external_width_edit.setFixedWidth(75)
 
@@ -332,7 +332,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(vd_external_width_hbox)
 
         length_hbox = QHBoxLayout()
-        length_label = QLabel("Actual Trace Length in mils")
+        length_label = QLabel("Actual Trace Length (mils)")
         self.length_edit = QLineEdit()
         self.length_edit.setFixedWidth(75)
 
@@ -343,7 +343,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(length_hbox)
 
         ambient_temp_hbox = QHBoxLayout()
-        ambient_temp_label = QLabel("Ambient Temp in Celsius")
+        ambient_temp_label = QLabel("Ambient Temp (Celsius)")
         self.ambient_temp_edit = QLineEdit()
         self.ambient_temp_edit.setFixedWidth(75)
 
@@ -354,7 +354,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(ambient_temp_hbox)
 
         vd_copper_weight_hbox = QHBoxLayout()
-        vd_copper_weight_label = QLabel("Copper Weight in oz/ft^2")
+        vd_copper_weight_label = QLabel("Copper Weight (oz/ft^2)")
         self.vd_copper_weight_edit = QLineEdit()
         self.vd_copper_weight_edit.setFixedWidth(75)
 
@@ -376,7 +376,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addWidget(label_results)
 
         trace_resistance_internal_hbox = QHBoxLayout()
-        self.internal_resistance_label = QLabel("INTERNAL Trace Resistance")
+        self.internal_resistance_label = QLabel("INTERNAL Trace Resistance (Ohms)")
         self.internal_resistance_result = QLineEdit()
         self.internal_resistance_result.setReadOnly(True)
         self.internal_resistance_result.setFixedWidth(75)
@@ -388,7 +388,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(trace_resistance_internal_hbox)
 
         trace_voltage_drop_internal_hbox = QHBoxLayout()
-        self.internal_drop_label = QLabel("INTERNAL Trace Voltage Drop")
+        self.internal_drop_label = QLabel("INTERNAL Trace Voltage Drop (Volts)")
         self.internal_drop_result = QLineEdit()
         self.internal_drop_result.setReadOnly(True)
         self.internal_drop_result.setFixedWidth(75)
@@ -400,7 +400,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(trace_voltage_drop_internal_hbox)
 
         trace_resistance_external_hbox = QHBoxLayout()
-        self.external_resistance_label = QLabel("EXTERNAL Trace Resistance")
+        self.external_resistance_label = QLabel("EXTERNAL Trace Resistance (Ohms)")
         self.external_resistance_result = QLineEdit()
         self.external_resistance_result.setReadOnly(True)
         self.external_resistance_result.setFixedWidth(75)
@@ -412,7 +412,7 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(trace_resistance_external_hbox)
 
         trace_voltage_drop_external_hbox = QHBoxLayout()
-        self.external_drop_label = QLabel("EXTERNAL Trace Voltage Drop")
+        self.external_drop_label = QLabel("EXTERNAL Trace Voltage Drop (Volts)")
         self.external_drop_result = QLineEdit()
         self.external_drop_result.setReadOnly(True)
         self.external_drop_result.setFixedWidth(75)
