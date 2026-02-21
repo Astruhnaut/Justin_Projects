@@ -64,5 +64,5 @@ def calc_epsilon_effective(epsilon_relative,dielectric_height,trace_width):
     return round(epsilon_effective,4)
 
 def calc_width_effective(trace_width,trace_thickness,dielectric_height):
-    width_effective = (trace_width + (trace_thickness/math.pi))*(1+math.log((2*dielectric_height)/trace_thickness))
+    width_effective = (trace_width + trace_thickness)*(1+(math.log((2*dielectric_height)/trace_thickness)))/math.pi
     return round(width_effective,4)

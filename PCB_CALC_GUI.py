@@ -506,6 +506,10 @@ class TabWidgetApp(QMainWindow):
 
         effective_width = calc_width_effective(width,thickness,height)
 
+        self.epsilon_eff_result_widget.setText(str(effective_epsilon))
+
+        self.width_eff_result_widget.setText(str(effective_width))
+
 
     def toggle_external_width(self, checked):
 
