@@ -125,6 +125,13 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.single_trace_impedance_result_widget.layout)
 
+        # Differential Pair Impedance Result
+        self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential Trace Impedance (Ohms)")
+        diff_pair_tab_layout.addWidget(self.diff_pair_impedance_result_widget)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(self.diff_pair_impedance_result_widget.layout)
+
 
 
         diff_pair_tab_layout.addStretch()
@@ -499,6 +506,7 @@ class TabWidgetApp(QMainWindow):
         epsilon_r = float(self.epsilon_r_widget.text())
         height = float(self.dielectric_height_widget.text())
         width = float(self.trace_width_widget.text())
+        spacing = float(self.trace_spacing_widget.text())
 
         thickness = calc_total_thickness(float(self.base_weight_widget.text()),float(self.plating_weight_widget.text()))
 
@@ -506,9 +514,17 @@ class TabWidgetApp(QMainWindow):
 
         effective_width = calc_width_effective(width,thickness,height)
 
+        z_odd = calc_single_trace_impedance(effective_epsilon, effective_width, height)
+
+        z_diff = calc_diff_pair_impedance(z_odd,spacing,height)
+
         self.epsilon_eff_result_widget.setText(str(effective_epsilon))
 
         self.width_eff_result_widget.setText(str(effective_width))
+
+        self.single_trace_impedance_result_widget.setText(str(z_odd))
+
+        self.diff_pair_impedance_result_widget.setText(str(z_diff))
 
 
     def toggle_external_width(self, checked):

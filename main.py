@@ -66,3 +66,11 @@ def calc_epsilon_effective(epsilon_relative,dielectric_height,trace_width):
 def calc_width_effective(trace_width,trace_thickness,dielectric_height):
     width_effective = (trace_width + trace_thickness)*(1+(math.log((2*dielectric_height)/trace_thickness)))/math.pi
     return round(width_effective,4)
+
+def calc_single_trace_impedance(epsilon_eff,width_eff,dielectric_height):
+    z_odd = eta / ((math.sqrt(epsilon_eff)) * ((width_eff / dielectric_height) + 1.393 + (0.667 * (math.log((width_eff / dielectric_height) + 1.444)))))
+    return round(z_odd,4)
+
+def calc_diff_pair_impedance(z_odd,spacing,height):
+    z_diff = 2 * (z_odd * (1 - 0.48 * math.exp(-0.96 * (spacing / height))))
+    return round(z_diff,4)
