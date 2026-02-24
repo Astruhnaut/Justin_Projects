@@ -104,34 +104,12 @@ class TabWidgetApp(QMainWindow):
 
         diff_pair_tab_layout.addWidget(label_results)
 
-        # Effective Permittivity Result
-        self.epsilon_eff_result_widget = LabeledLineEdit("Effective Permittivity")
-        diff_pair_tab_layout.addWidget(self.epsilon_eff_result_widget)
-
-        # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(self.epsilon_eff_result_widget.layout)
-
-        # Effective Trace Width Result
-        self.width_eff_result_widget = LabeledLineEdit("Effective Trace Width (mils)")
-        diff_pair_tab_layout.addWidget(self.width_eff_result_widget)
-
-        # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(self.width_eff_result_widget.layout)
-
-        # Single Trace Impedance Result
-        self.single_trace_impedance_result_widget = LabeledLineEdit("Single Trace Impedance (Ohms)")
-        diff_pair_tab_layout.addWidget(self.single_trace_impedance_result_widget)
-
-        # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(self.single_trace_impedance_result_widget.layout)
-
         # Differential Pair Impedance Result
-        self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential Trace Impedance (Ohms)")
+        self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential Microstrip Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.diff_pair_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.diff_pair_impedance_result_widget.layout)
-
 
 
         diff_pair_tab_layout.addStretch()
@@ -510,19 +488,7 @@ class TabWidgetApp(QMainWindow):
 
         thickness = calc_total_thickness(float(self.base_weight_widget.text()),float(self.plating_weight_widget.text()))
 
-        effective_epsilon = calc_epsilon_effective(epsilon_r,height,width)
-
-        effective_width = calc_width_effective(width,thickness,height)
-
-        z_odd = calc_single_trace_impedance(effective_epsilon, effective_width, height)
-
-        z_diff = calc_diff_pair_impedance(z_odd,spacing,height)
-
-        self.epsilon_eff_result_widget.setText(str(effective_epsilon))
-
-        self.width_eff_result_widget.setText(str(effective_width))
-
-        self.single_trace_impedance_result_widget.setText(str(z_odd))
+        z_diff = calc_diff_pair_impedance(epsilon_r,height,width,thickness,spacing)
 
         self.diff_pair_impedance_result_widget.setText(str(z_diff))
 
