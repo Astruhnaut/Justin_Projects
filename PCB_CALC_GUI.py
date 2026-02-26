@@ -43,6 +43,16 @@ class TabWidgetApp(QMainWindow):
 
         self.diff_pair_impedance_tab.setLayout(diff_pair_tab_layout)
 
+        self.microstrip_calc_checkbox = QCheckBox('focus MICROSTRIP')
+        self.microstrip_calc_checkbox.setChecked(False) # Initially NOT checked
+
+        diff_pair_tab_layout.addWidget(self.microstrip_calc_checkbox)
+
+        self.stripline_calc_checkbox = QCheckBox('focus STRIPLINE')
+        self.stripline_calc_checkbox.setChecked(False) # Initially NOT checked
+
+        diff_pair_tab_layout.addWidget(self.stripline_calc_checkbox)
+
         label_inputs = QLabel("INPUTS")
         label_inputs.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -104,6 +114,13 @@ class TabWidgetApp(QMainWindow):
 
         diff_pair_tab_layout.addWidget(label_results)
 
+        # Single Trace Microstrip Impedance Result
+        self.single_trace_impedance_result_widget = LabeledLineEdit("Single Microstrip Trace Impedance (Ohms)")
+        diff_pair_tab_layout.addWidget(self.single_trace_impedance_result_widget)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(self.single_trace_impedance_result_widget.layout)
+
         # Differential Pair Impedance Result
         self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential Microstrip Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.diff_pair_impedance_result_widget)
@@ -111,6 +128,19 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.diff_pair_impedance_result_widget.layout)
 
+        # Single Trace Stripline Impedance Result
+        self.stripline_single_trace_impedance_result_widget = LabeledLineEdit("Single Stripline Trace Impedance (Ohms)")
+        diff_pair_tab_layout.addWidget(self.stripline_single_trace_impedance_result_widget)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(self.stripline_single_trace_impedance_result_widget.layout)
+
+        # Differential Pair Trace Stripline Impedance Result
+        self.stripline_diff_pair_impedance_result_widget = LabeledLineEdit("Differential Stripline Trace Impedance (Ohms)")
+        diff_pair_tab_layout.addWidget(self.stripline_diff_pair_impedance_result_widget)
+
+        # Add horizontal layout to the main vertical layout
+        diff_pair_tab_layout.addLayout(self.stripline_diff_pair_impedance_result_widget.layout)
 
         diff_pair_tab_layout.addStretch()
 
@@ -481,16 +511,38 @@ class TabWidgetApp(QMainWindow):
 
     def run_impedance_calc(self):
 
-        epsilon_r = float(self.epsilon_r_widget.text())
-        height = float(self.dielectric_height_widget.text())
-        width = float(self.trace_width_widget.text())
-        spacing = float(self.trace_spacing_widget.text())
+        self.epsilon_r = float(self.epsilon_r_widget.text())
+        self.height = float(self.dielectric_height_widget.text())
+        self.width = float(self.trace_width_widget.text())
+        self.spacing = float(self.trace_spacing_widget.text())
 
-        thickness = calc_total_thickness(float(self.base_weight_widget.text()),float(self.plating_weight_widget.text()))
+        self.thickness = calc_total_thickness(float(self.base_weight_widget.text()),float(self.plating_weight_widget.text()))
 
-        z_diff = calc_diff_pair_impedance(epsilon_r,height,width,thickness,spacing)
+        if self.microstrip_calc_checkbox.isChecked():
+            self.calc_microstrip()
 
-        self.diff_pair_impedance_result_widget.setText(str(z_diff))
+        if self.stripline_calc_checkbox.isChecked():
+            self.calc_stripline()
+
+    def calc_microstrip(self):
+
+        Zo_microstrip = calc_single_microstrip_impedance(self.epsilon_r, self.height, self.thickness, self.width)
+
+        z_diff_microstrip = calc_microstrip_diff_pair_impedance(self.epsilon_r, self.height, self.width,self.thickness, self.spacing)
+
+        self.single_trace_impedance_result_widget.setText(str(Zo_microstrip))
+
+        self.diff_pair_impedance_result_widget.setText(str(z_diff_microstrip))
+
+    def calc_stripline(self):
+
+        Zo_stripline = calc_single_stripline_impedance(self.epsilon_r, self.height, self.thickness, self.width)
+
+        z_diff_stripline = calc_stripline_diff_pair_impedance(Zo_stripline, self.width, self.height, self.thickness,self.spacing)
+
+        self.stripline_diff_pair_impedance_result_widget.setText(str(z_diff_stripline))
+
+        self.stripline_single_trace_impedance_result_widget.setText(str(Zo_stripline))
 
 
     def toggle_external_width(self, checked):

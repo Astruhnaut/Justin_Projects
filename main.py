@@ -59,6 +59,18 @@ def calc_total_thickness(base_weight,plating_weight):
     total_thickness = base_weight_converted + plating_weight_converted
     return total_thickness
 
-def calc_diff_pair_impedance(epsilon_r,height,width,thickness,spacing):
-    z_diff = (174 / math.sqrt(epsilon_r + 1.41)) * (math.log((5.98 * height) / ((0.8 * width) + thickness))) * (1 - (0.48 * (math.exp(-0.96 * (spacing / height)))))
+def calc_single_microstrip_impedance(epsilon_r,height,thickness,width):
+    Zo_microstrip = 87 / (math.sqrt(epsilon_r + 1.41)) * math.log((5.98 * height) / (0.8 * width) + thickness)
+    return round(Zo_microstrip,4)
+
+def calc_microstrip_diff_pair_impedance(epsilon_r,height,width,thickness,spacing):
+    z_diff = 174 / (math.sqrt(epsilon_r + 1.41)) * (math.log((5.98 * height) / ((0.8 * width) + thickness))) * (1 - (0.48 * (math.exp(-0.96 * (spacing / height)))))
+    return round(z_diff,4)
+
+def calc_single_stripline_impedance(epsilon_r,height,thickness,width):
+    Zo_stripline = (60 / math.sqrt(epsilon_r)) * math.log((1.9*(2 * height) + thickness) / ((0.8 * width) + thickness))
+    return round(Zo_stripline,4)
+
+def calc_stripline_diff_pair_impedance(Zo_stripline,width,height,thickness,spacing):
+    z_diff = 2 * Zo_stripline * (1 - (0.347 * math.exp(-2.9 * ((spacing * height) + thickness) / (0.8 * width) + thickness)))
     return round(z_diff,4)
