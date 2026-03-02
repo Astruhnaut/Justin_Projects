@@ -34,7 +34,7 @@ class TabWidgetApp(QMainWindow):
         self.init_drop_resistance_tab_ui()
 
         self.diff_pair_impedance_tab = QWidget()
-        self.tabs.addTab(self.diff_pair_impedance_tab, "Microstrip Diff Pair")
+        self.tabs.addTab(self.diff_pair_impedance_tab, "Diff Pair Impedance")
         self.init_diff_pair_tab_ui()
 
     def init_diff_pair_tab_ui(self):
@@ -115,28 +115,28 @@ class TabWidgetApp(QMainWindow):
         diff_pair_tab_layout.addWidget(label_results)
 
         # Single Trace Microstrip Impedance Result
-        self.single_trace_impedance_result_widget = LabeledLineEdit("Single Microstrip Trace Impedance (Ohms)")
+        self.single_trace_impedance_result_widget = LabeledLineEdit("Single MICROSTRIP Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.single_trace_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.single_trace_impedance_result_widget.layout)
 
         # Differential Pair Impedance Result
-        self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential Microstrip Trace Impedance (Ohms)")
+        self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential MICROSTRIP Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.diff_pair_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.diff_pair_impedance_result_widget.layout)
 
         # Single Trace Stripline Impedance Result
-        self.stripline_single_trace_impedance_result_widget = LabeledLineEdit("Single Stripline Trace Impedance (Ohms)")
+        self.stripline_single_trace_impedance_result_widget = LabeledLineEdit("Single STRIPLINE Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.stripline_single_trace_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.stripline_single_trace_impedance_result_widget.layout)
 
         # Differential Pair Trace Stripline Impedance Result
-        self.stripline_diff_pair_impedance_result_widget = LabeledLineEdit("Differential Stripline Trace Impedance (Ohms)")
+        self.stripline_diff_pair_impedance_result_widget = LabeledLineEdit("Differential STRIPLINE Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.stripline_diff_pair_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
