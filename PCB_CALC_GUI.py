@@ -43,16 +43,6 @@ class TabWidgetApp(QMainWindow):
 
         self.diff_pair_impedance_tab.setLayout(diff_pair_tab_layout)
 
-        self.microstrip_calc_checkbox = QCheckBox('focus MICROSTRIP')
-        self.microstrip_calc_checkbox.setChecked(False) # Initially NOT checked
-
-        diff_pair_tab_layout.addWidget(self.microstrip_calc_checkbox)
-
-        self.stripline_calc_checkbox = QCheckBox('focus STRIPLINE')
-        self.stripline_calc_checkbox.setChecked(False) # Initially NOT checked
-
-        diff_pair_tab_layout.addWidget(self.stripline_calc_checkbox)
-
         label_inputs = QLabel("INPUTS")
         label_inputs.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -114,26 +104,12 @@ class TabWidgetApp(QMainWindow):
 
         diff_pair_tab_layout.addWidget(label_results)
 
-        # Single Trace Microstrip Impedance Result
-        self.single_trace_impedance_result_widget = LabeledLineEdit("Single MICROSTRIP Trace Impedance (Ohms)")
-        diff_pair_tab_layout.addWidget(self.single_trace_impedance_result_widget)
-
-        # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(self.single_trace_impedance_result_widget.layout)
-
         # Differential Pair Impedance Result
         self.diff_pair_impedance_result_widget = LabeledLineEdit("Differential MICROSTRIP Trace Impedance (Ohms)")
         diff_pair_tab_layout.addWidget(self.diff_pair_impedance_result_widget)
 
         # Add horizontal layout to the main vertical layout
         diff_pair_tab_layout.addLayout(self.diff_pair_impedance_result_widget.layout)
-
-        # Single Trace Stripline Impedance Result
-        self.stripline_single_trace_impedance_result_widget = LabeledLineEdit("Single STRIPLINE Trace Impedance (Ohms)")
-        diff_pair_tab_layout.addWidget(self.stripline_single_trace_impedance_result_widget)
-
-        # Add horizontal layout to the main vertical layout
-        diff_pair_tab_layout.addLayout(self.stripline_single_trace_impedance_result_widget.layout)
 
         # Differential Pair Trace Stripline Impedance Result
         self.stripline_diff_pair_impedance_result_widget = LabeledLineEdit("Differential STRIPLINE Trace Impedance (Ohms)")
@@ -157,20 +133,6 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout = QVBoxLayout()
 
         self.trace_width_tab.setLayout(trace_width_tab_layout)
-
-        self.internal_calc_checkbox = QCheckBox('focus INTERNAL')
-        self.internal_calc_checkbox.setChecked(False) # Initially NOT checked
-
-        self.internal_calc_checkbox.toggled.connect(self.toggle_external_width)
-
-        trace_width_tab_layout.addWidget(self.internal_calc_checkbox)
-
-        self.external_calc_checkbox = QCheckBox('focus EXTERNAL')
-        self.external_calc_checkbox.setChecked(False) # Initially NOT checked
-
-        self.external_calc_checkbox.toggled.connect(self.toggle_internal_width)
-
-        trace_width_tab_layout.addWidget(self.external_calc_checkbox)
 
         #*******INPUTS*******
 
@@ -291,20 +253,6 @@ class TabWidgetApp(QMainWindow):
 
         trace_resistance_tab_layout = QVBoxLayout()
         self.trace_resistance_tab.setLayout(trace_resistance_tab_layout)
-
-        self.internal_calc_checkbox2 = QCheckBox('focus INTERNAL')
-        self.internal_calc_checkbox2.setChecked(False) # Initially NOT checked
-
-        self.internal_calc_checkbox2.toggled.connect(self.toggle_external_vd_ohms)
-
-        trace_resistance_tab_layout.addWidget(self.internal_calc_checkbox2)
-
-        self.external_calc_checkbox2 = QCheckBox('focus EXTERNAL')
-        self.external_calc_checkbox2.setChecked(False) # Initially NOT checked
-
-        self.external_calc_checkbox2.toggled.connect(self.toggle_internal_vd_ohms)
-
-        trace_resistance_tab_layout.addWidget(self.external_calc_checkbox2)
 
 
         # *******INPUTS*******
@@ -518,68 +466,15 @@ class TabWidgetApp(QMainWindow):
 
         self.thickness = calc_total_thickness(float(self.base_weight_widget.text()),float(self.plating_weight_widget.text()))
 
-        if self.microstrip_calc_checkbox.isChecked():
-            self.calc_microstrip()
-
-        if self.stripline_calc_checkbox.isChecked():
-            self.calc_stripline()
-
-    def calc_microstrip(self):
-
-        Zo_microstrip = calc_single_microstrip_impedance(self.epsilon_r, self.height, self.thickness, self.width)
-
         z_diff_microstrip = calc_microstrip_diff_pair_impedance(self.epsilon_r, self.height, self.width,self.thickness, self.spacing)
 
-        self.single_trace_impedance_result_widget.setText(str(Zo_microstrip))
-
         self.diff_pair_impedance_result_widget.setText(str(z_diff_microstrip))
-
-    def calc_stripline(self):
 
         Zo_stripline = calc_single_stripline_impedance(self.epsilon_r, self.height, self.thickness, self.width)
 
         z_diff_stripline = calc_stripline_diff_pair_impedance(Zo_stripline, self.width, self.height, self.thickness,self.spacing)
 
         self.stripline_diff_pair_impedance_result_widget.setText(str(z_diff_stripline))
-
-        self.stripline_single_trace_impedance_result_widget.setText(str(Zo_stripline))
-
-
-    def toggle_external_width(self, checked):
-
-        self.external_trace_width_edit_widget.setVisible(not checked)
-
-        self.external_trace_width_widget.setVisible(not checked)
-
-        self.external_trace_area_widget.setVisible(not checked)
-
-        self.external_actual_trace_area_widget.setVisible(not checked)
-
-    def toggle_internal_width(self, checked):
-
-        self.internal_trace_width_edit_widget.setVisible(not checked)
-
-        self.internal_trace_width_widget.setVisible(not checked)
-
-        self.internal_trace_area_widget.setVisible(not checked)
-
-        self.internal_actual_trace_area_widget.setVisible(not checked)
-
-    def toggle_external_vd_ohms(self, checked):
-
-        self.vd_external_width_widget.setVisible(not checked)
-
-        self.external_resistance_widget.setVisible(not checked)
-
-        self.external_drop_widget.setVisible(not checked)
-
-    def toggle_internal_vd_ohms(self, checked):
-
-        self.vd_internal_width_widget.setVisible(not checked)
-
-        self.internal_resistance_widget.setVisible(not checked)
-
-        self.internal_drop_widget.setVisible(not checked)
 
 
 if __name__ == '__main__':
