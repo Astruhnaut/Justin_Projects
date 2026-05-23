@@ -178,17 +178,17 @@ class TabWidgetApp(QMainWindow):
 
 
 
-        #*******RESULTS*******
+        #*******INTERNAL TRACE RESULTS*******
 
 
         # Create a spacer between INPUTS and RESULTS
         spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         trace_width_tab_layout.addItem(spacer)
 
-        label_results = QLabel("RESULTS")
-        label_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        label_internal_results = QLabel("INTERNAL Trace Results")
+        label_internal_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        trace_width_tab_layout.addWidget(label_results)
+        trace_width_tab_layout.addWidget(label_internal_results)
 
 
         # Internal Minimum Trace Width Result
@@ -215,13 +215,23 @@ class TabWidgetApp(QMainWindow):
         trace_width_tab_layout.addLayout(self.internal_actual_trace_area_widget.layout)
 
 
+        #*******EXTERNAL TRACE RESULTS*******
+
+        # Create a spacer between INTERNAL and EXTERNAL
+        spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        trace_width_tab_layout.addItem(spacer)
+
+        label_external_results = QLabel("EXTERNAL Trace Results")
+        label_external_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        trace_width_tab_layout.addWidget(label_external_results)
+
         # External Minimum Trace Width Result
         self.external_trace_width_widget = LabeledLineEdit("EXTERNAL Minimum Trace Width (mils)")
         trace_width_tab_layout.addWidget(self.external_trace_width_widget)
 
         # Add horizontal layout to the main vertical layout
         trace_width_tab_layout.addLayout(self.external_trace_width_widget.layout)
-
 
         # External Minimum Trace Area Result
         self.external_trace_area_widget = LabeledLineEdit("EXTERNAL Minimum Trace Area (mils^2)")
@@ -312,16 +322,16 @@ class TabWidgetApp(QMainWindow):
         trace_resistance_tab_layout.addLayout(self.vd_copper_weight_widget.layout)
 
 
-        #*******RESULTS*******
+        # *******INTERNAL TRACE RESULTS*******
 
-
+        # Create a spacer between INPUTS and INTERNAL trace results
         spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
         trace_resistance_tab_layout.addItem(spacer)
 
-        label_results = QLabel("RESULTS")
-        label_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        label_internal_results = QLabel("INTERNAL Trace Results")
+        label_internal_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        trace_resistance_tab_layout.addWidget(label_results)
+        trace_resistance_tab_layout.addWidget(label_internal_results)
 
 
         # Internal Trace Resistance Result
@@ -339,6 +349,17 @@ class TabWidgetApp(QMainWindow):
         # Add horizontal layout to the main vertical layout
         trace_resistance_tab_layout.addLayout(self.internal_drop_widget.layout)
 
+
+        # *******EXTERNAL TRACE RESULTS*******
+
+        # Create a spacer between INPUTS and INTERNAL trace results
+        spacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        trace_resistance_tab_layout.addItem(spacer)
+
+        label_external_results = QLabel("EXTERNAL Trace Results")
+        label_external_results.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        trace_resistance_tab_layout.addWidget(label_external_results)
 
         # External Trace Resistance Result
         self.external_resistance_widget = LabeledLineEdit("EXTERNAL Trace Resistance (Ohms)")
